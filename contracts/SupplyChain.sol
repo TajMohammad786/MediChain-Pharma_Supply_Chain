@@ -1,0 +1,98 @@
+//SPDX-License-Identifier: MIT
+pragma solidity >=0.4.22 <0.9.0;
+import './Supplier.sol';
+//// New supply chain : supplier -> transporter -> manufacturer -> transporter -> whole-saler -> transporter -> distributor -> transporter -> customer/hospital/pharmacy
+
+
+// contract SupplyChain is Supplier, Transporter, Manufacturer, Wholesaler, Distributor, Customer {
+contract SupplyChain is Supplier {
+    
+    address public Owner;
+    
+    constructor()  {
+        Owner = msg.sender;
+    }
+    
+    modifier onlyOwner() {
+        require(Owner == msg.sender);
+        _;
+    }
+    
+    modifier checkUser(address addr) {
+        require(addr == msg.sender);
+        _;
+    }
+    
+    enum roles {
+        noRole,
+        supplier,
+        transporter,
+        manufacturer,
+        wholesaler,
+        distributor,
+        customer
+    }
+    
+    
+    //////////////// Events ////////////////////
+    
+    event UserRegister(address indexed _address, bytes32 name);
+
+    /////////////// Users (Only Owner Executable) //////////////////////
+    
+    struct userData {
+        bytes32 name;
+        string[] userLoc;
+        roles role;
+        address userAddr;
+    }
+    
+    mapping (address => userData) public userInfo;
+    
+    function registerUser(bytes32 _name,string[] memory loc, uint _role, address _addr) external onlyOwner returns(string memory) {
+        userInfo[_addr].name = _name;
+        userInfo[_addr].userLoc = loc;
+        userInfo[_addr].role = roles(_role);
+        userInfo[_addr].userAddr = _addr;
+        emit UserRegister(_addr, _name);
+        return "User Registered!";
+    }
+    
+    function changeUserRole(uint _role, address _addr) external onlyOwner returns(string memory) {
+        userInfo[_addr].role = roles(_role);
+       return "Role Updated!";
+    }
+
+    function getUser(address _addr) external view returns (bytes32, string[] memory, uint, address) {
+        require(userInfo[_addr].userAddr != address(0), "User does not exist");
+        userData memory user = userInfo[_addr];
+        return (user.name, user.userLoc, uint(user.role), user.userAddr);
+    }
+    /////////////// Supplier //////////////////////
+    
+    
+    function supplierCreatesRawPackage(
+        bytes32 _description,
+        uint _quantity,
+        address _transporterAddr,
+        address _manufacturerAddr
+        ) external {
+            require(userInfo[msg.sender].role == roles.supplier, "Role=>Supplier can use this function");
+            createRawMaterialPackage(_description, _quantity, _transporterAddr,_manufacturerAddr);
+    }
+    
+    function supplierGetPackageCount() external view returns(uint) {
+        require(userInfo[msg.sender].role == roles.supplier, "Role=>Supplier can use this function");
+        
+        return getNoOfPackagesOfSupplier();
+    }
+    
+    function supplierGetRawMaterialAddresses() external view returns(address[] memory) {
+        address[] memory ret = getAllPackages();
+        return ret;
+    }
+    
+
+
+
+}
