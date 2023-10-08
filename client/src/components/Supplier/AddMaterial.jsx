@@ -73,7 +73,7 @@ const AddMaterial = () => {
             "10",
           )
           .send({ from: account,  gas: 3000000 });
-          toast.success("User added successfully");
+          toast.success("Raw material added Successfully!!");
           // console.log("success"); 
           // toast.success("Raw Material Added Successfully")
           //TODO: get user location -> (latitude, longitude)

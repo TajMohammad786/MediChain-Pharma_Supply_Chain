@@ -66,3 +66,22 @@ export const supplierRoutes = [
     childrenRoutes: [],
   },
 ];
+
+export const manufacturerRoutes = [
+  {
+    heading: "Dashboard",
+    heading: "Dashboard",
+    path: "/manufacturer/dashboard",
+    icon: MdSpaceDashboard,
+    childrenRoutes: [],
+  },
+  {
+    heading: "Request Product",
+    heading: "Request Product",
+    path: "/manufacturer/request-product",
+    icon: BiSolidMessageSquareAdd,
+    childrenRoutes: [],
+  },
+  
+
+];

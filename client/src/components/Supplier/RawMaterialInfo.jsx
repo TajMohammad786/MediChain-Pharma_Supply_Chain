@@ -29,6 +29,10 @@ const RawMaterialInfo = () => {
     try {
         let rawMaterial = new web3.eth.Contract(RawMaterial.abi, address);
         let data = await rawMaterial.methods.getSuppliedRawMaterials().call({ from: address });
+        let status = await rawMaterial.methods.getRawMaterialStatus().call({ from: account });
+        console.log(Number(status));
+        // let sign = await web3.eth.accounts.sign("0x6940eFD52E56D3cd7Fa80E67f41bA77544A010Cb", "0x9ab5d53f5bd0cf5dbbae8159c46eba97adc33680394eca8e633c52128f7d5715")
+        
         const {
             0: productid,
             1: description,

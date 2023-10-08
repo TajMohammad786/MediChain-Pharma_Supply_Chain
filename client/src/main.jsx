@@ -11,6 +11,7 @@ import "./index.css";
 import Home from "./pages/Home.jsx";
 import Dashboard from "./components/Admin/Dashboard.jsx";
 import SupplierDashboard from "./components/Supplier/Dashboard.jsx";
+import ManufacturerDashboard from "./components/Manufacturer/Dashboard.jsx";
 import Admin from "./pages/Admin.jsx";
 import Owner from "./components/Admin/User/Owner.jsx";
 import AddUser from "./components/Admin/User/AddUser.jsx";
@@ -18,10 +19,13 @@ import ChangeRole from "./components/Admin/User/ChangeRole.jsx";
 import ViewUser from "./components/Admin/User/ViewUser.jsx";
 import { Web3Provider } from "./Context/Web3Context.jsx";
 import Supplier from "./pages/Supplier.jsx";
+import Manufacturer from "./pages/Manufacturer.jsx";
 import Transporter from "./pages/Transporter.jsx";
 import AddMaterial from "./components/Supplier/AddMaterial.jsx";
 import ViewRawMaterial from "./components/Supplier/ViewRawMaterial.jsx";
 import RawMaterialInfo from "./components/Supplier/RawMaterialInfo.jsx";
+
+import RequestProduct from "./components/Manufacturer/RequestProduct.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,8 +54,13 @@ const router = createBrowserRouter(
         <Route path="view-material" element={<ViewRawMaterial />} />
         <Route path="view-raw-material/:address" element={<RawMaterialInfo />} >
           <Route path=":id" element={<RawMaterialInfo/>}/>
-          {/* <Route path="0x10B291588312155A835F1AC7dEe9C37f9419Ca85" element={<RawMaterialInfo/>}></Route> */}
         </Route>
+      </Route>
+
+      {/*Manufacturer*/}
+      <Route path="manufacturer" element={<Manufacturer/>}>
+        <Route path="dashboard" element={<ManufacturerDashboard/>}/>
+        <Route path="request-product" element={<RequestProduct/>} />
       </Route>
 
       <Route path="*" element={<div>404 Page Not Found!</div>} />
