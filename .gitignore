@@ -1,0 +1,4 @@
+node_modules
+.env
+# This is only example env file
+# create .env.local file same as this file 
