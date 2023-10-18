@@ -10,9 +10,11 @@ import initWeb3 from "./utils/initWeb3";
 import { Web3Context } from "./Context/Web3Context";
 function App() {
   const { webData, setWebData, sidebarRoutes, setSidebarRoutes } =
-    useContext(Web3Context);
+    useContext(Web3Context);  
   const [openSideBar, setOpenSideBar] = useState(false);
 
+
+  
   // initialize web3
   useEffect(() => {
     async function getWeb3() {
