@@ -1,5 +1,8 @@
 import { MdSpaceDashboard } from "react-icons/md";
 import { BiSolidUserCircle, BiSolidMessageSquareAdd } from "react-icons/bi";
+import { MdPlaylistAdd } from "react-icons/md";
+import { FaTruckMedical, FaIndustry } from "react-icons/fa6";
+import { HiMiniViewfinderCircle } from "react-icons/hi2";
 
 export const mainRoutes = [
   {
@@ -11,19 +14,19 @@ export const mainRoutes = [
   {
     heading: "Supplier",
     path: "/supplier",
-    icon: MdSpaceDashboard,
+    icon: MdPlaylistAdd,
     childrenRoutes: [],
   },
   {
     heading: "Transporter",
     path: "/transporter",
-    icon: MdSpaceDashboard,
+    icon: FaTruckMedical,
     childrenRoutes: [],
   },
   {
     heading: "Manufacturer",
     path: "/manufacturer",
-    icon: MdSpaceDashboard,
+    icon: FaIndustry,
     childrenRoutes: [],
   },
 ];
@@ -62,7 +65,7 @@ export const supplierRoutes = [
     heading: "View Material",
     heading: "View Material",
     path: "/supplier/view-material",
-    icon: BiSolidMessageSquareAdd,
+    icon: HiMiniViewfinderCircle,
     childrenRoutes: [],
   },
 ];
