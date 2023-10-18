@@ -24,6 +24,7 @@ import Transporter from "./pages/Transporter.jsx";
 import AddMaterial from "./components/Supplier/AddMaterial.jsx";
 import ViewRawMaterial from "./components/Supplier/ViewRawMaterial.jsx";
 import RawMaterialInfo from "./components/Supplier/RawMaterialInfo.jsx";
+import ViewRequest from "./components/Events/ViewRequest.jsx";
 
 import RequestProduct from "./components/Manufacturer/RequestProduct.jsx";
 
@@ -52,15 +53,16 @@ const router = createBrowserRouter(
         <Route path="dashboard" element={<SupplierDashboard />} />
         <Route path="add-material" element={<AddMaterial />} />
         <Route path="view-material" element={<ViewRawMaterial />} />
-        <Route path="view-raw-material/:address" element={<RawMaterialInfo />} >
-          <Route path=":id" element={<RawMaterialInfo/>}/>
+        <Route path="view-raw-material/:address" element={<RawMaterialInfo />}>
+          <Route path=":id" element={<RawMaterialInfo />} />
         </Route>
+        <Route path="view-request/:address" element={<ViewRequest />} />
       </Route>
 
       {/*Manufacturer*/}
-      <Route path="manufacturer" element={<Manufacturer/>}>
-        <Route path="dashboard" element={<ManufacturerDashboard/>}/>
-        <Route path="request-product" element={<RequestProduct/>} />
+      <Route path="manufacturer" element={<Manufacturer />}>
+        <Route path="dashboard" element={<ManufacturerDashboard />} />
+        <Route path="request-product" element={<RequestProduct />} />
       </Route>
 
       <Route path="*" element={<div>404 Page Not Found!</div>} />

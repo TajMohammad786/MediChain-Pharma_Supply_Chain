@@ -11,7 +11,6 @@ const Supplier = () => {
   }, []);
   return (
     <div>
-      
       <Outlet />
     </div>
   );

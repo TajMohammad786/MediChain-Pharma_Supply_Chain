@@ -22,28 +22,20 @@ const ViewUser = () => {
 
   const getStringName = (name) => {
     return getTrimmedString(web3, name);
-  }
-
+  };
 
   const handleViewUser = async (e) => {
     e.preventDefault();
     try {
-      
       const result = await supplyChain.methods
         .getUser(address)
         .call({ gas: 3000000 });
       // console.log(result);
-      const {
-        0: name,
-        1: location,
-        2: role,
-        4: userAddress,
-      } = result;
-      
-      
+      const { 0: name, 1: location, 2: role, 4: userAddress } = result;
+
       setUserDetails({ name, location, role, address });
       // console.log(userDetails.name);
-      
+
       setShowData(true);
       setAddress("");
     } catch (e) {
@@ -75,8 +67,12 @@ const ViewUser = () => {
       {showData && (
         <div className="container my-4 flex flex-col">
           <div className="my-1 ">
-            <p className="font-head font-semibold">Name :
-            <span className="font-para font-normal">{getStringName(userDetails.name)}</span></p>
+            <p className="font-head font-semibold">
+              Name :
+              <span className="font-para font-normal">
+                {getStringName(userDetails.name)}
+              </span>
+            </p>
           </div>
           <div className="my-1 ">
             <p className="font-head font-semibold">Location : </p>
@@ -94,12 +90,21 @@ const ViewUser = () => {
             </p>
           </div>
           <div className="my-1 ">
-            <p className="font-head font-semibold">Address :  
-            <span className="font-para font-normal">{"     "}{userDetails.address}</span></p>
+            <p className="font-head font-semibold">
+              Address :
+              <span className="font-para font-normal">
+                {"     "}
+                {userDetails.address}
+              </span>
+            </p>
           </div>
           <div className="my-1 ">
-            <p className="font-head font-semibold">Role : {"     "}  
-            <span className="font-para font-normal">{userRoles[Number(userDetails.role)]}</span></p>
+            <p className="font-head font-semibold">
+              Role : {"     "}
+              <span className="font-para font-normal">
+                {userRoles[Number(userDetails.role)]}
+              </span>
+            </p>
           </div>
         </div>
       )}

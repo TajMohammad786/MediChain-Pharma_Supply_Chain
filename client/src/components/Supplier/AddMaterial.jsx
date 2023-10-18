@@ -3,7 +3,7 @@ import { Web3Context } from "../../Context/Web3Context";
 import { useContext } from "react";
 import RawMaterial from "../../contracts/RawMaterial.json";
 import Transactions from "../../contracts/Transactions.json";
-import {toast} from "react-hot-toast"
+import { toast } from "react-hot-toast";
 
 const AddMaterial = () => {
   const { webData } = useContext(Web3Context);
@@ -11,10 +11,10 @@ const AddMaterial = () => {
   //   console.log(web3);
   const [formData, setFormData] = useState({
     description: "",
-    quantity: ""
+    quantity: "",
   });
-  const [transporterAddress, setTransporterAddress] = useState("")
-  const [manufacturerAddress, setManufacturerAddress] = useState("")
+  const [transporterAddress, setTransporterAddress] = useState("");
+  const [manufacturerAddress, setManufacturerAddress] = useState("");
 
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: [e.target.value] });
@@ -53,7 +53,7 @@ const AddMaterial = () => {
         // console.log(rawMaterial);
         let data = await rawMaterial.methods
           .getSuppliedRawMaterials()
-          .call({ from: account,  gas: 3000000 });
+          .call({ from: account, gas: 3000000 });
         // console.log(data);
         let txnContractAddress = data[6];
         let txnHash = receipt.transactionHash;
@@ -72,11 +72,11 @@ const AddMaterial = () => {
             "10",
             "10",
           )
-          .send({ from: account,  gas: 3000000 });
-          toast.success("Raw material added Successfully!!");
-          // console.log("success"); 
-          // toast.success("Raw Material Added Successfully")
-          //TODO: get user location -> (latitude, longitude)
+          .send({ from: account, gas: 3000000 });
+        toast.success("Raw material added Successfully!!");
+        // console.log("success");
+        // toast.success("Raw Material Added Successfully")
+        //TODO: get user location -> (latitude, longitude)
         // isLoading(false);
       });
   };
@@ -130,7 +130,7 @@ const AddMaterial = () => {
           name="transporter"
           className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
           value={transporterAddress}
-          onChange={(e)=>setTransporterAddress(e.target.value)}
+          onChange={(e) => setTransporterAddress(e.target.value)}
         />
       </div>
       <div className="relative mb-4">
@@ -146,7 +146,7 @@ const AddMaterial = () => {
           name="manufacturer"
           className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
           value={manufacturerAddress}
-          onChange={(e)=>setManufacturerAddress(e.target.value)}
+          onChange={(e) => setManufacturerAddress(e.target.value)}
         />
       </div>
 

@@ -17,9 +17,9 @@ const calculateStringLength = (web3, name) => {
 
 export const getTrimmedString = (web3, name) => {
   const length = calculateStringLength(web3, name);
-  
+
   // Slice the name string based on the calculated length
   const trimmedString = web3.utils.hexToUtf8(name).slice(0, length);
-  
+
   return trimmedString;
 };

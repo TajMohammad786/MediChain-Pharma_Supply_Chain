@@ -82,6 +82,4 @@ export const manufacturerRoutes = [
     icon: BiSolidMessageSquareAdd,
     childrenRoutes: [],
   },
-  
-
 ];

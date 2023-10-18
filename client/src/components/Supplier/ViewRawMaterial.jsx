@@ -42,10 +42,10 @@
 
 // export default ViewRawMaterial;
 
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Web3Context } from '../../Context/Web3Context';
-import { useContext } from 'react';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Web3Context } from "../../Context/Web3Context";
+import { useContext } from "react";
 
 const ViewRawMaterials = () => {
   const { webData } = useContext(Web3Context);
@@ -55,15 +55,15 @@ const ViewRawMaterials = () => {
 
   async function fetchRawMaterialAddresses() {
     try {
-        const rawMaterialAddresses = await supplyChain.methods.getAllPackages().call({ from: account });
-        setAddresses(rawMaterialAddresses);
-        setLoading(false);
-      
+      const rawMaterialAddresses = await supplyChain.methods
+        .getAllPackages()
+        .call({ from: account });
+      setAddresses(rawMaterialAddresses);
+      setLoading(false);
     } catch (error) {
-      console.error('Error fetching raw material addresses:', error);
+      console.error("Error fetching raw material addresses:", error);
     }
   }
-  
 
   useEffect(() => {
     fetchRawMaterialAddresses();
@@ -71,18 +71,21 @@ const ViewRawMaterials = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <p className="text-2xl">Loading raw material addresses...</p>
       </div>
     );
   } else {
     return (
       <div className="min-h-screen bg-gray-100 p-4">
-        <h1 className="text-3xl font-bold mb-4">Raw Material Addresses</h1>
+        <h1 className="mb-4 text-3xl font-bold">Raw Material Addresses</h1>
         <ul>
           {addresses.map((address, index) => (
             <li key={index} className="mb-2">
-              <Link to={`/supplier/view-raw-material/${address}`} className="text-blue-500 hover:underline">
+              <Link
+                to={`/supplier/view-raw-material/${address}`}
+                className="text-blue-500 hover:underline"
+              >
                 {address}
               </Link>
             </li>
@@ -94,4 +97,3 @@ const ViewRawMaterials = () => {
 };
 
 export default ViewRawMaterials;
-

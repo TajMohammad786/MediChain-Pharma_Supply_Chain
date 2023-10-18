@@ -11,7 +11,6 @@ const Manufacturer = () => {
   }, []);
   return (
     <div>
-      
       <Outlet />
     </div>
   );

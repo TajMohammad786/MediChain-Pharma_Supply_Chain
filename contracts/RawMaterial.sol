@@ -103,4 +103,7 @@ contract RawMaterial {
         status = packageStatus(2);
         emit ShippmentUpdate(productid, transporter, manufacturer, 1, 2);
     }
+     function updateManufacturerAddress(address addr) public {
+        manufacturer = addr;
+    }
 }

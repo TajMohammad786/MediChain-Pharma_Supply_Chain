@@ -6,9 +6,9 @@ const Home = () => {
   const { webData, setSidebarRoutes } = useContext(Web3Context);
   const { account, supplyChain, web3 } = webData;
 
-  useEffect(()=>{
-    setSidebarRoutes(mainRoutes)
-  },[])
+  useEffect(() => {
+    setSidebarRoutes(mainRoutes);
+  }, []);
   return (
     <section className="body-font text-gray-600">
       <div className="container mx-auto px-5 py-24">

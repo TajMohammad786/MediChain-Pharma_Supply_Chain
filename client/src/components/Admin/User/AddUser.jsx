@@ -22,19 +22,17 @@ const AddUser = () => {
   // };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-  
+
     // For the 'role' field, capture the value (role name) in the state
     // and also find its index in the userRoles array
     if (name === "role") {
       const roleIndex = userRoles.indexOf(value);
       setRole(roleIndex);
       setFormData({ ...formData, [name]: value, roleIndex });
-      
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
-  
 
   const handleAddUser = (e) => {
     e.preventDefault();
@@ -103,7 +101,7 @@ const AddUser = () => {
           placeholder="Only integer values are supported"
         />
       </div>
-    
+
       <div className="relative mb-4">
         <label htmlFor="role" className="text-sm leading-7 text-gray-600">
           Role

@@ -113,6 +113,8 @@ contract SupplyChain is Supplier {
     }
     
 
-
+    function verify(address p, bytes32 hash, uint8 v, bytes32 r, bytes32 s) public pure returns(bool) {
+        return ecrecover(hash, v, r, s) == p;
+    }  
 
 }
