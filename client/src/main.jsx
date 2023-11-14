@@ -27,6 +27,7 @@ import RawMaterialInfo from "./components/Supplier/RawMaterialInfo.jsx";
 import ViewRequest from "./components/Events/ViewRequest.jsx";
 
 import RequestProduct from "./components/Manufacturer/RequestProduct.jsx";
+import { SidebarContextProvider } from "./Context/SidebarContext.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -73,7 +74,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Web3Provider>
-      <RouterProvider router={router} />
+      <SidebarContextProvider>
+        <RouterProvider router={router} />
+      </SidebarContextProvider>
     </Web3Provider>
   </React.StrictMode>,
 );

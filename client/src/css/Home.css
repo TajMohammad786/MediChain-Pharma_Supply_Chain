@@ -1,0 +1,19 @@
+/* Home.css */
+.entity-card {
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .entity-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px; /* Adjust the height as needed */
+    object-fit: contain; /* or "cover" for different scaling behavior */
+  }
+  
+  .entity-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

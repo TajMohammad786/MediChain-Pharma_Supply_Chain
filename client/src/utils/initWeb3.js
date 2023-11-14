@@ -1,9 +1,13 @@
 import Web3, { net } from "web3";
 import SupplyChain from "../contracts/SupplyChain.json";
+import { useState } from "react";
+// import { useContext } from "react";
 
 const initWeb3 = async () => {
+  // const { webData, setWebData} = useContext(Web3Context);
   const provider = new Web3.providers.HttpProvider("http://localhost:8545");
   const web3 = new Web3(provider);
+  
   //   console.log(web3)
   const networkId = await web3.eth.net.getId();
   const deployedNetwork = SupplyChain.networks[networkId];
@@ -18,6 +22,7 @@ const initWeb3 = async () => {
   );
   //   console.log(deployerTransaction)
   const deployerAccount = deployerTransaction.from;
+  
   return {
     web3: web3,
     supplyChain: supplyChain,

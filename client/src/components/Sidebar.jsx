@@ -1,61 +1,69 @@
 import { useContext, useState } from "react";
-import { GrFormNextLink } from "react-icons/gr";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Web3Context } from "../Context/Web3Context";
+import { SidebarContext } from "../Context/SidebarContext";
 
-function Sidebar({ openSideBar }) {
-  const { sidebarRoutes, setSidebarRoutes } = useContext(Web3Context);
-  const navigate = useNavigate();
-  const handleNavigate = (to) => {
-    navigate(to);
-  };
+function Sidebar() {
+  const { sidebarRoutes } = useContext(Web3Context);
+  const { isSmallOpen } = useContext(SidebarContext);
+
   return (
-    <div
-      className={`relative inset-y-0 left-0 z-50 ${
-        openSideBar ? "" : ""
-      } transform rounded-sm border-r-2 transition-all duration-300 ease-in-out`}
-    >
-      {/* Sidebar content */}
-      <div className="p-4">
-        <ul className="mt-4">
-          {sidebarRoutes.map((element, index) => (
-            <div key={index}>
-              <div
-                className="flex cursor-pointer items-center gap-2 px-5 py-4"
-                to={element.path}
-                key={index}
-              >
-                <element.icon className="text-2xl" />
-                {openSideBar && (
-                  <>
-                    <span
-                      className="px-3"
-                      onClick={() => handleNavigate(element.path)}
-                    >
-                      {element.heading}
-                    </span>
-                  </>
-                )}
-              </div>
-              <div className="flex cursor-pointer flex-col items-center gap-2">
-                {openSideBar &&
-                  element.childrenRoutes &&
-                  element.childrenRoutes.map((route) => (
-                    <Link
-                      to={`${element.path}/${route}`}
-                      className="flex w-40 justify-start gap-2 px-5 py-1 capitalize"
-                    >
-                      <GrFormNextLink className="text-xl" />
-                      {route}
-                    </Link>
-                  ))}
-              </div>
-            </div>
+    <>
+      {isSmallOpen ? (
+        <aside
+          className={`scrollbar-hidden sticky flex flex-col items-center overflow-y-auto pb-4 transition-all duration-500 ${isSmallOpen} : "" : "hidden"`}
+        >
+          {sidebarRoutes.map((route, index) => (
+            <SmallSideBarIcon
+              key={index}
+              Icon={route.icon}
+              title={route.heading}
+              path={route.path}
+            />
           ))}
-        </ul>
-      </div>
-    </div>
+        </aside>
+      ) : (
+        <aside
+          className={`scrollbar-hidden w-56 flex-col gap-2 overflow-y-auto px-2 pb-4 transition-all duration-500  lg:sticky ${
+            isSmallOpen ? "scale-0" : "scale-100"
+          }`}
+        >
+          {sidebarRoutes.map((route, index) => (
+            <LargeSidebarItem
+              key={index}
+              Icon={route.icon}
+              title={route.heading}
+              path={route.path}
+            />
+          ))}
+        </aside>
+      )}
+    </>
   );
 }
 
+function LargeSidebarItem({ Icon, title, path }) {
+  return (
+    <button className="flex w-full appearance-none flex-col items-center justify-start rounded-xl px-1 py-2 hover:bg-slate-100">
+      <Link className="flex w-full items-center justify-start gap-4" to={path}>
+        <Icon className="text-xl " />
+        <p className="py-2 text-gray-500">{title}</p>
+      </Link>
+    </button>
+  );
+}
+
+function SmallSideBarIcon({ Icon, title, path }) {
+  return (
+    <button className="flex w-[90px] appearance-none flex-col items-center justify-center rounded-xl px-2 py-2 hover:bg-slate-100">
+      <Link
+        className="flex w-[90px] flex-col items-center justify-center"
+        to={path}
+      >
+        <Icon className="text-xl " />
+        <p className="py-2 text-xs text-gray-500">{title}</p>
+      </Link>
+    </button>
+  );
+}
 export default Sidebar;

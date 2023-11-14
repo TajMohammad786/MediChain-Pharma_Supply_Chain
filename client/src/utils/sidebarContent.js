@@ -1,4 +1,9 @@
-import { MdSpaceDashboard } from "react-icons/md";
+import {
+  MdAddTask,
+  MdChangeCircle,
+  MdSpaceDashboard,
+  MdViewKanban,
+} from "react-icons/md";
 import { BiSolidUserCircle, BiSolidMessageSquareAdd } from "react-icons/bi";
 import { MdPlaylistAdd } from "react-icons/md";
 import { FaTruckMedical, FaIndustry } from "react-icons/fa6";
@@ -9,25 +14,21 @@ export const mainRoutes = [
     heading: "Owner",
     path: "/owner",
     icon: MdSpaceDashboard,
-    childrenRoutes: [],
   },
   {
     heading: "Supplier",
     path: "/supplier",
     icon: MdPlaylistAdd,
-    childrenRoutes: [],
   },
   {
     heading: "Transporter",
     path: "/transporter",
     icon: FaTruckMedical,
-    childrenRoutes: [],
   },
   {
     heading: "Manufacturer",
     path: "/manufacturer",
     icon: FaIndustry,
-    childrenRoutes: [],
   },
 ];
 
@@ -36,13 +37,21 @@ export const adminRoutes = [
     heading: "Dashboard",
     path: "/owner/dashboard",
     icon: MdSpaceDashboard,
-    childrenRoutes: [],
   },
   {
-    heading: "User",
-    path: "/owner/user",
-    icon: BiSolidUserCircle,
-    childrenRoutes: ["add", "view", "change"],
+    heading: "Add User",
+    path: "/owner/user/add",
+    icon: MdAddTask,
+  },
+  {
+    heading: "View User",
+    path: "/owner/user/view",
+    icon: MdViewKanban,
+  },
+  {
+    heading: "Change Role",
+    path: "/owner/user/change",
+    icon: MdChangeCircle,
   },
 ];
 
@@ -52,21 +61,18 @@ export const supplierRoutes = [
     heading: "Dashboard",
     path: "/supplier/dashboard",
     icon: MdSpaceDashboard,
-    childrenRoutes: [],
   },
   {
     heading: "Add Material",
     heading: "Add Material",
     path: "/supplier/add-material",
     icon: BiSolidMessageSquareAdd,
-    childrenRoutes: [],
   },
   {
     heading: "View Material",
     heading: "View Material",
     path: "/supplier/view-material",
     icon: HiMiniViewfinderCircle,
-    childrenRoutes: [],
   },
 ];
 
@@ -76,13 +82,11 @@ export const manufacturerRoutes = [
     heading: "Dashboard",
     path: "/manufacturer/dashboard",
     icon: MdSpaceDashboard,
-    childrenRoutes: [],
   },
   {
     heading: "Request Product",
     heading: "Request Product",
     path: "/manufacturer/request-product",
     icon: BiSolidMessageSquareAdd,
-    childrenRoutes: [],
   },
 ];

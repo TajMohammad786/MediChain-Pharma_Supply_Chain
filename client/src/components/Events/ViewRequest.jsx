@@ -162,6 +162,7 @@ const ViewRequest = () => {
     const r = signature.slice(0, 66); // bytes32
     const s = "0x" + signature.slice(66, 130); // bytes32
     let messageHash = web3.eth.accounts.hashMessage(address);
+    // console.log(web3.eth);
     let verificationOutput = await supplyChain.methods
       .verify(buyerAddress, messageHash, v, r, s)
       .call({ from: account });

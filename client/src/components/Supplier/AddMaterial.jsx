@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 const AddMaterial = () => {
   const { webData } = useContext(Web3Context);
   const { account, supplyChain, web3 } = webData;
+  // console.log(account);
   //   console.log(web3);
   const [formData, setFormData] = useState({
     description: "",

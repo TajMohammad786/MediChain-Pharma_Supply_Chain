@@ -12,7 +12,7 @@ const RawMaterialInfo = () => {
   const { webData } = useContext(Web3Context);
   const { account, supplyChain, web3 } = webData;
   const [details, setDetails] = useState({
-    productid: "",
+    productId: "",
     description: "",
     quantity: "",
     supplier: "",
@@ -39,7 +39,7 @@ const RawMaterialInfo = () => {
       // let sign = await web3.eth.accounts.sign("0x6940eFD52E56D3cd7Fa80E67f41bA77544A010Cb", "0x9ab5d53f5bd0cf5dbbae8159c46eba97adc33680394eca8e633c52128f7d5715")
 
       const {
-        0: productid,
+        0: productId,
         1: description,
         2: quantity,
         3: supplier,
@@ -48,7 +48,7 @@ const RawMaterialInfo = () => {
         6: txnContractAddress,
       } = data;
       setDetails({
-        productid,
+        productId,
         description,
         quantity,
         supplier,
@@ -112,38 +112,46 @@ const RawMaterialInfo = () => {
     );
   } else {
     return (
-      <div className="min-h-screen bg-gray-100 p-3">
-        <h1 className="mb-4 text-3xl font-bold">Raw Material Details</h1>
+      <div className="">
+        <h1 className="mb-4 font-head text-3xl font-bold">
+          Raw Material Details
+        </h1>
         <div className="mb-4">
-          <p className="mb-2 font-semibold">
+          <p className="mb-2 font-head font-semibold">
             Generated Product ID: &nbsp;{" "}
-            <span className="font-medium">{details.productid}</span>
+            <span className="font-para font-medium">{details.productId}</span>
           </p>
-          <p className="mb-2 font-semibold">
+          <p className="mb-2 font-head font-semibold">
             Raw Material Address: &nbsp;
-            <span className="font-medium">{details.supplier}</span>
+            <span className="font-para font-medium">{details.supplier}</span>
           </p>
-          <p className="mb-2 font-semibold">
+          <p className="mb-2 font-head font-semibold">
             Raw Material Description: &nbsp;
-            <span className="font-medium">
+            <span className="font-para font-medium">
               {getStringName(details.description)}
             </span>
           </p>
-          <p className="mb-2 font-semibold">
+          <p className="mb-2 font-head font-semibold">
             Raw Material Quantity: &nbsp;
-            <span className="font-medium">{Number(details.quantity)}</span>
+            <span className="font-para font-medium">
+              {Number(details.quantity)}
+            </span>
           </p>
-          <p className="mb-2 font-semibold">
+          <p className="mb-2 font-head font-semibold">
             Raw Material Manufacturer: &nbsp;
-            <span className="font-medium">{details.manufacturer}</span>
+            <span className="font-para font-medium">
+              {details.manufacturer}
+            </span>
           </p>
-          <p className="mb-2 font-semibold">
+          <p className="mb-2 font-head font-semibold">
             Raw Material Transporter: &nbsp;
-            <span className="font-medium">{details.transporter}</span>
+            <span className="font-para font-medium">{details.transporter}</span>
           </p>
-          <p className="mb-2 font-semibold">
+          <p className="mb-2 font-head font-semibold">
             Transaction Contract Address: &nbsp;
-            <span className="font-medium">{details.txnContractAddress}</span>
+            <span className="font-para font-medium">
+              {details.txnContractAddress}
+            </span>
           </p>
         </div>
         <button className="rounded border-0 bg-indigo-500 px-6 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none">

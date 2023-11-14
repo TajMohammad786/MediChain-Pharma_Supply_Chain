@@ -1,5 +1,6 @@
-import OwnerImage from "./owner.jpg";
-import ManufacturerImage from "./manufacturer.jpg";
-import TransporterImage from "./transporter.jpg";
+import OwnerImage from "../Images/admin.png";
+import SupplierImage from "../Images/supplier1.jpg";
+import TransporterImage from "../Images/transporter1.jpg";
+import ManufacturerImage from "../Images/manufacturer1.jpg";
 
-export { OwnerImage, ManufacturerImage, TransporterImage };
+export { OwnerImage,SupplierImage, TransporterImage,ManufacturerImage };

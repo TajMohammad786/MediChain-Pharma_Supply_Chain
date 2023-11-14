@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Web3Context } from "../Context/Web3Context";
 import { toast } from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 
 const GenerateSignature = () => {
-  const { webData } = useContext(Web3Context);
+  const { webData, setWebData } = useContext(Web3Context);
   const { account, supplyChain, web3 } = webData;
   // console.log(supplyChain)
   const [signed, setsigned] = useState(false);
@@ -15,12 +15,25 @@ const GenerateSignature = () => {
     signature: "",
   });
   const [sign, setSign] = useState("");
+  // window.ethereum.on("accountsChanged", (account) => {
+  //   if (account.length > 0) {
+  //     const newAccount = account[0];
+  //     // console.log("MetaMask account changed:", newAccount);  
+  //     // setAccounts(newAccount);
+  //     setWebData({
+  //       ...webData,
+  //       account: newAccount,
+  //     })
+  //     console.log("The changed account is ", webData.account)
+  //   }
+  // })
 
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const generateSignature = async () => {
+    
     // console.log(formData.packageAddr, formData.privateKey);
     try {
       const signature = await web3.eth.accounts.sign(
@@ -42,6 +55,8 @@ const GenerateSignature = () => {
   const onRequest = async (e) => {
     e.preventDefault();
     // isLoading(true);
+  
+    console.log(account);
     supplyChain.methods
       .requestProduct(
         account,

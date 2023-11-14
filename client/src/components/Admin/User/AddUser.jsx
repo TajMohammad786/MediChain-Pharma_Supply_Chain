@@ -33,10 +33,11 @@ const AddUser = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
+  
 
   const handleAddUser = (e) => {
     e.preventDefault();
-    // console.log(formData.name)
+    // console.log(web3)
     const n = web3.utils.padRight(web3.utils.fromAscii(formData.name), 64);
     // console.log(n);
     const loc = [String(formData.locationX), String(formData.locationY)];

@@ -2,15 +2,42 @@ import { useContext } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { Web3Context } from "../Context/Web3Context";
+import { toast } from "react-hot-toast";
+import { FaEthereum, FaEthernet } from "react-icons/fa6";
+import { SidebarContext } from "../Context/SidebarContext";
 
-const Header = ({ setOpenSideBar }) => {
+const Header = () => {
+  const { webData,setWebData,balance, getMetamaskBalance } = useContext(Web3Context);
+  const { toggle } = useContext(SidebarContext);
+  
   const handleHamClick = () => {
-    setOpenSideBar((prev) => !prev);
+    toggle();
+  };
+  const handleOnConnectWallet = () => {
+    if (window.ethereum) {
+      // toast.success("wallet connected successfully");
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((res) => {
+          // console.log(res[0]);
+          getMetamaskBalance(res[0]);
+          setWebData({
+            ...webData,
+            account: res[0],
+          })
+          console.log("The changed account is ", webData.account)
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    } else {
+      toast.error("Please add metamask extension");
+    }
   };
 
   return (
-    <header className="body-font text-gray-600">
-      <div className="container mx-auto flex flex-col flex-wrap items-center py-5 md:flex-row">
+    <header className="container mx-auto">
+      <div className="flex flex-col flex-wrap items-center py-5 md:flex-row">
         <GiHamburgerMenu
           className="cursor-pointer text-xl"
           onClick={handleHamClick}
@@ -26,19 +53,12 @@ const Header = ({ setOpenSideBar }) => {
             Home
           </Link>
         </nav>
-        <button className="mt-4 inline-flex items-center rounded border-0 bg-gray-100 px-3 py-1 text-base hover:bg-gray-200 focus:outline-none md:mt-0">
-          Button
-          <svg
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="ml-1 h-4 w-4"
-            viewBox="0 0 24 24"
-          >
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
+        <button
+          className="mt-4 inline-flex items-center rounded-md border-0 bg-gray-100 px-3 py-2 text-base hover:bg-gray-200 focus:outline-none md:mt-0"
+          onClick={handleOnConnectWallet}
+        >
+          {balance !== undefined ? balance : "Connect Wallet"}
+          <FaEthereum className="mx-1 text-base" />
         </button>
       </div>
     </header>
