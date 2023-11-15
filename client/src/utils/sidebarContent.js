@@ -89,4 +89,27 @@ export const manufacturerRoutes = [
     path: "/manufacturer/request-product",
     icon: BiSolidMessageSquareAdd,
   },
+  {
+    heading: "View Response",
+    heading: "View Response",
+    path: "/manufacturer/view-response",
+    icon: HiMiniViewfinderCircle,
+  },
+];
+
+
+export const transporterRoutes = [
+  {
+    heading: "Dashboard",
+    heading: "Dashboard",
+    path: "/transporter/dashboard",
+    icon: MdSpaceDashboard,
+  },
+  {
+    heading: "Handle Package",
+    heading: "Handle Package",
+    path: "/transporter/handle-package",
+    icon: BiSolidMessageSquareAdd,
+  },
+  
 ];

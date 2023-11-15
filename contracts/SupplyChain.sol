@@ -1,11 +1,12 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 import './Supplier.sol';
+import './Transporter.sol';
 //// New supply chain : supplier -> transporter -> manufacturer -> transporter -> whole-saler -> transporter -> distributor -> transporter -> customer/hospital/pharmacy
 
 
 // contract SupplyChain is Supplier, Transporter, Manufacturer, Wholesaler, Distributor, Customer {
-contract SupplyChain is Supplier {
+contract SupplyChain is Supplier, Transporter {
     
     address public Owner;
     
@@ -116,5 +117,27 @@ contract SupplyChain is Supplier {
     function verify(address p, bytes32 hash, uint8 v, bytes32 r, bytes32 s) public pure returns(bool) {
         return ecrecover(hash, v, r, s) == p;
     }  
+
+
+    ///////////////  Transporter ///////////////
+    
+    
+    function transporterHandlePackage(
+        address _address,
+        uint transporterType,
+        address cid
+        ) external {
+            
+        require(
+            userInfo[msg.sender].role == roles.transporter,
+            "Only Transporter can call this function"
+        );
+        require(
+            transporterType > 0,
+            "Transporter Type is incorrect"
+        );
+        
+        handlePackage(_address, transporterType, cid);
+    }
 
 }

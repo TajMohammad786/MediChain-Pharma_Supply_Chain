@@ -147,7 +147,8 @@ const ViewRequest = () => {
       toBlock: "latest",
     });
     setData(events);
-
+    // console.log(events);
+    
     setLoading(false);
     // console.log(data);
     // } catch (error) {
@@ -168,33 +169,46 @@ const ViewRequest = () => {
       .call({ from: account });
     // console.log(verificationOutput);
     if (verificationOutput) {
-      toast.success("Buyer is verified successfully!");
+      toast.success("Buyer is verified successfully!!");
       // signature = prompt('Enter signature');
 
       supplyChain.methods
-        .respondToEntity(buyerAddress, account, address, signature)
-        .send({ from: account });
-      console.log(account);
+        .respondToEntity(
+          buyerAddress, 
+          account, 
+          address, 
+          signature
+        )
+        .send({ from: account })
+        .once("receipt", async (receipt) => {
+          toast.success("Response Sent to Manufacturer!!");
+          console.log(receipt);
+          // isLoading(false);
+        });
+      // console.log(signature);
+      // console.log(buyerAddress);
+      
       const data = await supplyChain.methods
         .getUser(account)
         .call({ gas: 3000000 });
       // console.log(data);
       const role = Number(data[2]);
-      // console.log(role);
+      console.log(role);
+      // console.log(buyerAddress)
       // const role = 3;
-      if (role === 3) {
+      if (role === 1) {
         const rawMaterial = new web3.eth.Contract(RawMaterial.abi, address);
         rawMaterial.methods
           .updateManufacturerAddress(buyerAddress)
           .send({ from: account });
         toast.success("Response sent to manufacturer");
-      } else if (role === 4) {
+      } else if (role === 2) {
         const medicine = new web3.eth.Contract(Medicine.abi, address);
         medicine.methods
           .updateWholesalerAddress(buyerAddress)
           .send({ from: account });
         toast.success("Response sent to wholesaler");
-      } else if (role === 5) {
+      } else if (role === 3) {
         const medicine = new web3.eth.Contract(Medicine.abi, address);
         medicine.methods
           .updateDistributorAddress(buyerAddress)
@@ -212,6 +226,7 @@ const ViewRequest = () => {
     if (supplyChain) {
       getEvents();
       setLoading(false);
+      // console.log(data)
     }
   }, []);
 

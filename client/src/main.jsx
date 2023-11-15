@@ -12,6 +12,7 @@ import Home from "./pages/Home.jsx";
 import Dashboard from "./components/Admin/Dashboard.jsx";
 import SupplierDashboard from "./components/Supplier/Dashboard.jsx";
 import ManufacturerDashboard from "./components/Manufacturer/Dashboard.jsx";
+import TransporterDashboard from "./components/Transporter/Dashboard.jsx";
 import Admin from "./pages/Admin.jsx";
 import Owner from "./components/Admin/User/Owner.jsx";
 import AddUser from "./components/Admin/User/AddUser.jsx";
@@ -21,10 +22,12 @@ import { Web3Provider } from "./Context/Web3Context.jsx";
 import Supplier from "./pages/Supplier.jsx";
 import Manufacturer from "./pages/Manufacturer.jsx";
 import Transporter from "./pages/Transporter.jsx";
+import HandlePackage from "./components/Transporter/HandlePackage.jsx";
 import AddMaterial from "./components/Supplier/AddMaterial.jsx";
 import ViewRawMaterial from "./components/Supplier/ViewRawMaterial.jsx";
 import RawMaterialInfo from "./components/Supplier/RawMaterialInfo.jsx";
 import ViewRequest from "./components/Events/ViewRequest.jsx";
+import ViewResponse from "./components/Events/ViewResponse.jsx";
 
 import RequestProduct from "./components/Manufacturer/RequestProduct.jsx";
 import { SidebarContextProvider } from "./Context/SidebarContext.jsx";
@@ -46,7 +49,8 @@ const router = createBrowserRouter(
 
       {/* transporter */}
       <Route path="transporter" element={<Transporter />}>
-        <Route path="dashboard" element={<p>transporter</p>} />
+        <Route path="dashboard" element={<TransporterDashboard/>} />
+        <Route path="handle-package" element={<HandlePackage />} />
       </Route>
 
       {/* supplier */}
@@ -64,6 +68,7 @@ const router = createBrowserRouter(
       <Route path="manufacturer" element={<Manufacturer />}>
         <Route path="dashboard" element={<ManufacturerDashboard />} />
         <Route path="request-product" element={<RequestProduct />} />
+        <Route path="view-response" element={<ViewResponse />} />
       </Route>
 
       <Route path="*" element={<div>404 Page Not Found!</div>} />
