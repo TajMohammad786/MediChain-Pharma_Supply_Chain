@@ -1,7 +1,9 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
+
 import './Supplier.sol';
 import './Transporter.sol';
+// import './Manufacturer.sol';
 //// New supply chain : supplier -> transporter -> manufacturer -> transporter -> whole-saler -> transporter -> distributor -> transporter -> customer/hospital/pharmacy
 
 
@@ -140,4 +142,7 @@ contract SupplyChain is Supplier, Transporter {
         handlePackage(_address, transporterType, cid);
     }
 
+    ///////////////////////      Manufacturer           //////////////////////////////
+
+    
 }

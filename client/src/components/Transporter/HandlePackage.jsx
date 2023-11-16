@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Web3Context } from "../../Context/Web3Context";
+import { toast } from "react-hot-toast";
+
 
 const HandlePackage = () => {
    
@@ -28,6 +30,7 @@ const HandlePackage = () => {
       console.log(receipt);
       setIsLoading(false);
     })
+    toast.success("Package Handled Successfully")
   }
   
   return (
@@ -92,7 +95,7 @@ const HandlePackage = () => {
           className="rounded border-0 bg-indigo-500 px-6 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none"
           onClick={handleSubmit}
         >
-          Request
+          Submit
         </button>
       </div>
     </>

@@ -20,7 +20,7 @@ contract MedicineW_D {
         address Sender,
         address Transporter,
         address Receiver
-    ) public {
+    )  {
         Owner = Sender;
         medId = _address;
         sender = Sender;

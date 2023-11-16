@@ -185,7 +185,12 @@ const RawMaterialInfo = () => {
           <p className="mb-2 font-head font-semibold">
             Transaction Contract Address: &nbsp;
             <span className="font-para font-medium">
-              {details.txnContractAddress}
+            <Link
+                to={`/supplier/view-transactions/${details.txnContractAddress}`}
+                className="capitalize hover:underline"
+              >
+                {details.txnContractAddress}
+              </Link>
             </span>
           </p>
         </div>

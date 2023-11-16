@@ -28,9 +28,10 @@ import ViewRawMaterial from "./components/Supplier/ViewRawMaterial.jsx";
 import RawMaterialInfo from "./components/Supplier/RawMaterialInfo.jsx";
 import ViewRequest from "./components/Events/ViewRequest.jsx";
 import ViewResponse from "./components/Events/ViewResponse.jsx";
-
 import RequestProduct from "./components/Manufacturer/RequestProduct.jsx";
+import Transactions from "./components/Transaction/Transactions.jsx";
 import { SidebarContextProvider } from "./Context/SidebarContext.jsx";
+import ReceiveProduct from "./components/Manufacturer/ReceiveProduct.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,6 +62,7 @@ const router = createBrowserRouter(
         <Route path="view-raw-material/:address" element={<RawMaterialInfo />}>
           <Route path=":id" element={<RawMaterialInfo />} />
         </Route>
+        <Route path="view-transactions/:address" element={<Transactions />} />
         <Route path="view-request/:address" element={<ViewRequest />} />
       </Route>
 
@@ -69,6 +71,8 @@ const router = createBrowserRouter(
         <Route path="dashboard" element={<ManufacturerDashboard />} />
         <Route path="request-product" element={<RequestProduct />} />
         <Route path="view-response" element={<ViewResponse />} />
+        <Route path="receive-product" element={<ReceiveProduct/>} />
+        <Route path="view-transactions/:address" element={<Transactions />} />
       </Route>
 
       <Route path="*" element={<div>404 Page Not Found!</div>} />

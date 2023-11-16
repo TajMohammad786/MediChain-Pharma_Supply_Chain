@@ -95,6 +95,12 @@ export const manufacturerRoutes = [
     path: "/manufacturer/view-response",
     icon: HiMiniViewfinderCircle,
   },
+  {
+    heading: "Receive Product",
+    heading: "Receive Product",
+    path: "/manufacturer/receive-product",
+    icon: BiSolidMessageSquareAdd,
+  },
 ];
 
 
