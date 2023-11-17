@@ -35,24 +35,28 @@ const ReceiveProduct = () => {
     });
 
     console.log(events);
+    
     // I have to look on this in future ******* suuplier address needs to be there
-    // let supplier = data[3];
-    let supplier = events[0]['returnValues'][1];
+    let supplier = data[3];
+    console.log(supplier)
+    // let supplier = events[0]['returnValues'][1];
     let signature = events[0]['returnValues'][3];
     // console.log(supplier, signature)
     let verificationOutput = await verifySignature(supplier, signature);
-    console.log(verificationOutput);
+    // console.log(address, account,  supplier,  signature);
+    // console.log(verificationOutput);
     if(verificationOutput) {
       toast.success('Signature Verified Successfully!!');
-      supplyChain.methods.manufacturerReceivedPackage(address, account, supplier, signature).send({from: account})
+      supplyChain.methods.manufacturerReceivedPackage(address, account, supplier, signature).send({from: account, gas: 300000})
         .once('receipt', async (receipt) => {
           let txnContractAddress = data[6];
           let transporterAddress = data[4];
           let txnHash = receipt.transactionHash;
+          // console.log(txnHash);
           const transactions = new web3.eth.Contract(Transactions.abi, txnContractAddress);
           let txns = await transactions.methods.getAllTransactions().call({from: account});
           let prevTxn = txns[txns.length - 1][0];
-          transactions.methods.createTxnEntry(txnHash, transporterAddress, account, prevTxn, '10', '10').send({from: account});
+          transactions.methods.createTxnEntry(txnHash, transporterAddress, account, prevTxn, '10', '10').send({from: account, gas: 300000});
         });
     }
   }

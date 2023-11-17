@@ -145,4 +145,199 @@ contract SupplyChain is Supplier, Transporter {
     ///////////////////////      Manufacturer           //////////////////////////////
 
     
+    
+    mapping (address => address[]) public manufacturerRawMaterials;
+    mapping (address => address[]) public manufacturerMedicines;
+    
+    
+    function manufacturerReceivedPackage(
+        address _addr,
+        address _manufacturerAddress,
+        address _sellerAddr,
+        bytes memory signature
+        ) public {
+            
+        RawMaterial(_addr).receivedPackage(_manufacturerAddress);
+        manufacturerRawMaterials[_manufacturerAddress].push(_addr);
+        emit receivedEvent(msg.sender, _sellerAddr, _addr, signature, block.timestamp);
+    }
+    
+    function getAllRawMaterials() public view returns(address[] memory) {
+        uint len = manufacturerRawMaterials[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = manufacturerRawMaterials[msg.sender][i];
+        }
+        return ret;
+    }
+
+    function manufacturerCreatesMedicine(
+        address _manufacturerAddr,
+        bytes32 _description,
+        address[] memory _rawAddr,
+        uint _quantity,
+        address[] memory _transporterAddr
+        ) public {
+            
+        Medicine _medicine = new Medicine(
+            _manufacturerAddr,
+            _description,
+            _rawAddr,
+            _quantity,
+            _transporterAddr
+        );
+        
+        manufacturerMedicines[_manufacturerAddr].push(address(_medicine));
+        
+    }
+    
+    function getAllCreatedMedicines() public view returns(address[] memory) {
+        uint len = manufacturerMedicines[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = manufacturerMedicines[msg.sender][i];
+        }
+        return ret;
+    }
+    
+
+    ///////////////  Wholesaler  ///////////////
+
+    mapping(address => address[]) public MedicinesAtWholesaler;
+    mapping(address => address[]) public MedicineWtoD;
+    mapping(address => address) public MedicineWtoDTxContract;
+    
+    function wholesalerReceivedMedicine(
+        address _address,
+        address _sellerAddr,
+        bytes memory signature
+        ) public {
+        require(
+            userInfo[msg.sender].role == roles.wholesaler,
+            "Only Wholesaler can call this function"
+        );
+        
+        Medicine(_address).receivedMedicine(msg.sender);
+        MedicinesAtWholesaler[msg.sender].push(_address);
+        emit receivedEvent(msg.sender, _sellerAddr, _address, signature, block.timestamp);
+    }
+    
+    function transferMedicineWtoD(
+            address _address,
+            address transporter,
+            address receiver
+        ) public {
+            
+        MedicineW_D wd = new MedicineW_D(
+            _address,
+            msg.sender,
+            transporter,
+            receiver
+        );
+        MedicineWtoD[msg.sender].push(address(wd));
+        MedicineWtoDTxContract[_address] = address(wd);
+    }
+
+    
+    function getBatchIdByIndexWD(uint index) public view returns(address packageID) {
+        require(
+            userInfo[msg.sender].role == roles.wholesaler,
+            "Only Wholesaler Can call this function."
+        );
+        return MedicineWtoD[msg.sender][index];
+    }
+
+    function getSubContractWD(address _address) public view returns (address SubContractWD) {
+        return MedicineWtoDTxContract[_address];
+    }
+    
+    function getAllMedicinesAtWholesaler() public view returns(address[] memory) {
+        uint len = MedicinesAtWholesaler[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = MedicinesAtWholesaler[msg.sender][i];
+        }
+        return ret;
+    }
+
+
+//     ///////////////  Distributor  ///////////////
+
+    mapping(address => address[]) public MedicinesAtDistributor;
+    mapping(address => address[]) public MedicineDtoC;
+    mapping(address => address) public MedicineDtoCTxContract;
+
+
+    function distributorReceivedMedicine(
+      address _address,
+      address cid,
+      address _sellerAddr,
+      bytes memory signature
+    ) public {
+
+        ///////////////######################## Work on this in future done for reducing size
+        // require(
+        //     userInfo[msg.sender].role == roles.distributor &&
+        //     msg.sender == Medicine(_address).getWDC()[1],
+        //     "Only Distributor or current owner of package can call this function"  
+        // );
+        
+        uint rtype = Medicine(_address).receivedMedicine(msg.sender);
+        if(rtype == 2){
+            MedicinesAtDistributor[msg.sender].push(_address);
+            if(Medicine(_address).getWDC()[0] != address(0)){
+                MedicineW_D(cid).receiveWD(_address, msg.sender);
+            }
+        }
+        emit receivedEvent(msg.sender, _sellerAddr, _address, signature, block.timestamp);
+    }
+
+    function distributorTransferMedicinetoCustomer(
+        address _address,
+        address transporter,
+        address receiver
+    ) public {
+        require(
+            userInfo[msg.sender].role == roles.distributor &&
+            msg.sender == Medicine(_address).getWDC()[1],
+            "Only Distributor or current owner of package can call this function"
+        );
+        MedicineD_C dp = new MedicineD_C(
+            _address,
+            msg.sender,
+            transporter,
+            receiver
+        );
+        MedicineDtoC[msg.sender].push(address(dp));
+        MedicineDtoCTxContract[_address] = address(dp);
+    }
+    
+    function getBatchesCountDC() public view returns (uint count){
+        require(
+            userInfo[msg.sender].role == roles.distributor,
+            "Only Distributor Can call this function."
+        );
+        return MedicineDtoC[msg.sender].length;
+    }
+
+    function getBatchIdByIndexDC(uint index) public view returns(address packageID) {
+        require(
+            userInfo[msg.sender].role == roles.distributor,
+            "Only Distributor Can call this function."
+        );
+        return MedicineDtoC[msg.sender][index];
+    }
+
+    function getSubContractDC(address _address) public view returns (address SubContractDP) {
+        return MedicineDtoCTxContract[_address];
+    }
+    
+    function getAllMedicinesAtDistributor() public view returns(address[] memory) {
+        uint len = MedicinesAtDistributor[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = MedicinesAtDistributor[msg.sender][i];
+        }
+        return ret;
+    }
 }

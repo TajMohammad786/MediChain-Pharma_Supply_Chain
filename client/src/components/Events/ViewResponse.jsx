@@ -34,7 +34,7 @@ const ViewResponse = () => {
     // }
   }
 
-  async function verifySignature(buyerAddress, signature) {
+  async function verifySignature(sellerAddress, signature) {
     // console.log(signature);
     const v = "0x" + signature.slice(130, 132); // uint8
     const r = signature.slice(0, 66); // bytes32
@@ -43,7 +43,7 @@ const ViewResponse = () => {
     let messageHash = web3.eth.accounts.hashMessage(pkgAddress);
 
     let verificationOutput = await supplyChain.methods
-      .verify(buyerAddress, messageHash, v, r, s)
+      .verify(sellerAddress, messageHash, v, r, s)
       .call({ from: account });
     // console.log(verificationOutput);
     if (verificationOutput) {
@@ -149,7 +149,7 @@ const ViewResponse = () => {
                       className="text-md rounded border-0 bg-indigo-500 px-6 py-2 text-white hover:bg-indigo-600 focus:outline-none"
                       onClick={() =>
                         verifySignature(
-                          event.returnValues.buyer,
+                          event.returnValues.seller,
                           event.returnValues.signature,
                         )
                       }

@@ -31,7 +31,7 @@ const ViewRawMaterials = () => {
   async function fetchRawMaterialAddresses() {
     try {
       const rawMaterialAddresses = await supplyChain.methods
-        .getAllPackages()
+        .getAllRawMaterials()
         .call({ from: account });
       setAddresses(rawMaterialAddresses);
       for (let address in rawMaterialAddresses) {
@@ -59,13 +59,13 @@ const ViewRawMaterials = () => {
     return (
       <div className="min-h-screen p-4">
         <h1 className="mb-4 font-head text-3xl font-bold">
-          Available Raw Materials
+          Received Raw Materials
         </h1>
         <ul className="mt-2">
           {addresses.map((address, index) => (
             <li key={index} className="mb-2 text-fuchsia-500">
               <Link
-                to={`/supplier/view-raw-material/${address}`}
+                to={`/manufacturer/view-raw-material/${address}`}
                 className="capitalize hover:underline"
               >
                 {rawMaterialDescription[index]} :-  &nbsp; {address} 

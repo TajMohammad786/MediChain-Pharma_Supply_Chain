@@ -170,7 +170,7 @@ const ViewRequest = () => {
     // console.log(verificationOutput);
     if (verificationOutput) {
       toast.success("Buyer is verified successfully!!");
-      // signature = prompt('Enter signature');
+      signature = prompt('Enter signature');
 
       supplyChain.methods
         .respondToEntity(
@@ -181,7 +181,7 @@ const ViewRequest = () => {
         )
         .send({ from: account })
         .once("receipt", async (receipt) => {
-          toast.success("Response Sent to Manufacturer!!");
+          
           console.log(receipt);
           // isLoading(false);
         });
@@ -201,7 +201,7 @@ const ViewRequest = () => {
         rawMaterial.methods
           .updateManufacturerAddress(buyerAddress)
           .send({ from: account });
-        toast.success("Response sent to manufacturer");
+          toast.success("Response Sent to Manufacturer!!");
       } else if (role === 2) {
         const medicine = new web3.eth.Contract(Medicine.abi, address);
         medicine.methods

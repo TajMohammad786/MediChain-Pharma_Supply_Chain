@@ -6,7 +6,7 @@ import RawMaterial from "../../contracts/RawMaterial.json";
 import Transactions from "../../contracts/Transactions.json";
 import { getTrimmedString } from "../../utils/getTrimmedString";
 import toast from "react-hot-toast";
-import CustomStepper from "./Stepper";
+import CustomStepper from "../Supplier/Stepper";
 
 const RawMaterialInfo = () => {
   const { address } = useParams();
@@ -90,49 +90,49 @@ const RawMaterialInfo = () => {
     }
   }
 
-  function sendPackage() {
-    let rawMaterial = new web3.eth.Contract(
-      RawMaterial.abi,
-      address,
-    );
-    let signature = prompt("Enter signature");
-    supplyChain.methods
-      .sendPackageToEntity(details.manufacturer, account, address, signature)
-      .send({ from: account })
-      .once("receipt", async (receipt) => {
-        let data = await rawMaterial.methods
-          .getSuppliedRawMaterials()
-          .call({ from: account });
-        let txnContractAddress = details.txnContractAddress;
-        let transporterAddress = details.transporter;
-        let txnHash = receipt.transactionHash;
-        // console.log(txnContractAddress, transporterAddress, txnHash);
-        // const transactions = new web3.eth.Contract(Transactions.abi, txnContractAddress);
-        const transactions = new web3.eth.Contract(
-          Transactions.abi,
-          txnContractAddress,
-        );
-        let txns = await transactions.methods
-          .getAllTransactions()
-          .call({ from: account });
-        // console.log(txns);
+//   function sendPackage() {
+//     let rawMaterial = new web3.eth.Contract(
+//       RawMaterial.abi,
+//       address,
+//     );
+//     let signature = prompt("Enter signature");
+//     supplyChain.methods
+//       .sendPackageToEntity(details.manufacturer, account, address, signature)
+//       .send({ from: account })
+//       .once("receipt", async (receipt) => {
+//         let data = await rawMaterial.methods
+//           .getSuppliedRawMaterials()
+//           .call({ from: account });
+//         let txnContractAddress = details.txnContractAddress;
+//         let transporterAddress = details.transporter;
+//         let txnHash = receipt.transactionHash;
+//         // console.log(txnContractAddress, transporterAddress, txnHash);
+//         // const transactions = new web3.eth.Contract(Transactions.abi, txnContractAddress);
+//         const transactions = new web3.eth.Contract(
+//           Transactions.abi,
+//           txnContractAddress,
+//         );
+//         let txns = await transactions.methods
+//           .getAllTransactions()
+//           .call({ from: account });
+//         // console.log(txns);
 
-        let prevTxn = txns[txns.length - 1][0];
+//         let prevTxn = txns[txns.length - 1][0];
         
-        transactions.methods
-          .createTxnEntry(
-            txnHash,
-            account,
-            transporterAddress,
-            prevTxn,
-            "10",
-            "10",
-          )
-          .send({ from: account, gas: 2000000 })
-          toast.success("Package sent successfully")
-      });
+//         transactions.methods
+//           .createTxnEntry(
+//             txnHash,
+//             account,
+//             transporterAddress,
+//             prevTxn,
+//             "10",
+//             "10",
+//           )
+//           .send({ from: account, gas: 2000000 })
+//           toast.success("Package sent successfully")
+//       });
      
-  }
+//   }
 
   useEffect(() => {
     fetchRawMaterialData();
@@ -186,7 +186,7 @@ const RawMaterialInfo = () => {
             Transaction Contract Address: &nbsp;
             <span className="font-para font-medium text-fuchsia-500">
             <Link
-                to={`/supplier/view-transactions/${details.txnContractAddress}`}
+                to={`/manufacturer/view-transactions/${details.txnContractAddress}`}
                 className="capitalize hover:underline"
               >
                 {details.txnContractAddress}
@@ -194,7 +194,7 @@ const RawMaterialInfo = () => {
             </span>
           </p>
         </div>
-        <button className="rounded border-0 bg-indigo-500 px-6 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none">
+        {/* <button className="rounded border-0 bg-indigo-500 px-6 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none">
           <Link
             to={`/supplier/view-request/${address}`}
             className="text-white hover:underline"
@@ -207,8 +207,8 @@ const RawMaterialInfo = () => {
           onClick={sendPackage}
         >
           Send Package
-        </button>
-        <div className="mt-12 ml-4 mr-4">
+        </button> */}
+        <div className="mt-24 ml-4 mr-4">
 
         <CustomStepper activeStep={activestep} getSteps={getSupplyChainSteps} getStepContent={getSupplyChainStepContent} />
         </div>

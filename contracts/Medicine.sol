@@ -43,7 +43,7 @@ contract Medicine {
         address[] memory _rawAddr,
         uint _quantity,
         address[] memory _transporterAddr
-    )  {
+    )   {
         Owner = _manufacturerAddr;
         manufacturer = _manufacturerAddr;
         description = _description;
@@ -133,7 +133,7 @@ contract Medicine {
 
     function receivedMedicine(
         address _receiverAddr
-    ) public returns(uint) {
+    ) public returns(uint result) {
 
         require(
             _receiverAddr == wholesaler || _receiverAddr == distributor,

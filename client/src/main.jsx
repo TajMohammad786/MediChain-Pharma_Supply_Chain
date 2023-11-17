@@ -25,6 +25,8 @@ import Transporter from "./pages/Transporter.jsx";
 import HandlePackage from "./components/Transporter/HandlePackage.jsx";
 import AddMaterial from "./components/Supplier/AddMaterial.jsx";
 import ViewRawMaterial from "./components/Supplier/ViewRawMaterial.jsx";
+import ViewRecievedRawMaterial from "./components/Manufacturer/ViewReceivedRawMat.jsx";
+import ReceivedRawMaterial from "./components/Manufacturer/ReceivedRawMaterial.jsx";
 import RawMaterialInfo from "./components/Supplier/RawMaterialInfo.jsx";
 import ViewRequest from "./components/Events/ViewRequest.jsx";
 import ViewResponse from "./components/Events/ViewResponse.jsx";
@@ -32,6 +34,9 @@ import RequestProduct from "./components/Manufacturer/RequestProduct.jsx";
 import Transactions from "./components/Transaction/Transactions.jsx";
 import { SidebarContextProvider } from "./Context/SidebarContext.jsx";
 import ReceiveProduct from "./components/Manufacturer/ReceiveProduct.jsx";
+import CreateMedicine from "./components/Manufacturer/CreateMedicine.jsx";
+import ViewMedicine from "./components/Manufacturer/ViewMedicine.jsx";
+import ViewMedicineInfo from "./components/Manufacturer/ViewMedicineInfo.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -72,7 +77,16 @@ const router = createBrowserRouter(
         <Route path="request-product" element={<RequestProduct />} />
         <Route path="view-response" element={<ViewResponse />} />
         <Route path="receive-product" element={<ReceiveProduct/>} />
+        <Route path="view-material" element={<ViewRecievedRawMaterial />} />
+        <Route path="view-raw-material/:address" element={<ReceivedRawMaterial />}>
+          <Route path=":id" element={<ReceivedRawMaterial />} />
+        </Route>
         <Route path="view-transactions/:address" element={<Transactions />} />
+        <Route path="create-medicine" element={<CreateMedicine />} />
+        <Route path="view-medicine" element={<ViewMedicine />} />
+        <Route path="view-medicine-list/:address" element={<ViewMedicineInfo />}>
+          <Route path=":id" element={<ViewMedicineInfo />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<div>404 Page Not Found!</div>} />

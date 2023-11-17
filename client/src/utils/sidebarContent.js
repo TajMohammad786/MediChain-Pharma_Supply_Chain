@@ -101,6 +101,24 @@ export const manufacturerRoutes = [
     path: "/manufacturer/receive-product",
     icon: BiSolidMessageSquareAdd,
   },
+  {
+    heading: "View Material",
+    heading: "View Material",
+    path: "/manufacturer/view-material",
+    icon: HiMiniViewfinderCircle,
+  },
+  {
+    heading: "Create Medicine",
+    heading: "Create Medicine",
+    path: "/manufacturer/create-medicine",
+    icon: HiMiniViewfinderCircle,
+  },
+  {
+    heading: "View Medicine",
+    heading: "View Medicine",
+    path: "/manufacturer/view-medicine",
+    icon: BiSolidMessageSquareAdd,
+  },
 ];
 
 
