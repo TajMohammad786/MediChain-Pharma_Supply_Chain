@@ -3,7 +3,7 @@ import { Web3Context } from "../Context/Web3Context";
 import { toast } from "react-hot-toast";
 // import { useLocation, useNavigate } from "react-router-dom";
 
-const GenerateSignature = () => {
+const GenerateSignature = (props) => {
   const { webData, setWebData } = useContext(Web3Context);
   const { account, supplyChain, web3 } = webData;
   // console.log(supplyChain)
@@ -45,7 +45,7 @@ const GenerateSignature = () => {
       setSign(signature.signature);
 
       await navigator.clipboard.writeText(signature.signature);
-      toast.success("copied to clipboard");
+      toast.success("Copied to Clipboard!!");
       setsigned(true);
     } catch (err) {
       console.log(err);
@@ -66,7 +66,7 @@ const GenerateSignature = () => {
       )
       .send({ from: account })
       .once("receipt", async (receipt) => {
-        toast.success("Request Made to Supplier!");
+        toast.success(`Request Made to ${props.User}!`);
         console.log(receipt);
         // isLoading(false);
       });
@@ -78,7 +78,7 @@ const GenerateSignature = () => {
         <>
           <div>
             <h1 className="text-center font-head text-xl font-bold">
-              Request Raw Material
+              {props.header}
             </h1>
 
             <div className="relative my-2 mb-4">
@@ -86,7 +86,7 @@ const GenerateSignature = () => {
                 htmlFor="description"
                 className="text-sm leading-7 text-gray-600"
               >
-                Package Address
+                {props.package} Address
               </label>
               <input
                 type="text"
@@ -102,7 +102,7 @@ const GenerateSignature = () => {
                 htmlFor="quantity"
                 className="text-sm leading-7 text-gray-600"
               >
-                Supplier Address
+                {props.User} Address
               </label>
               <input
                 type="text"

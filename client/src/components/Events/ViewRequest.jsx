@@ -131,6 +131,7 @@ import { Web3Context } from "../../Context/Web3Context";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import GetSignature from "../../utils/getSignature";
 
 const ViewRequest = () => {
   const { address } = useParams();
@@ -138,11 +139,13 @@ const ViewRequest = () => {
   const { account, supplyChain, web3 } = webData;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  
 
   async function getEvents() {
     // try {
     const events = await supplyChain.getPastEvents("buyEvent", {
-      filter: { packageAddr: address },
+      filter: { seller: account   },
+      // filter: { packageAddr: address},
       fromBlock: 0,
       toBlock: "latest",
     });
@@ -156,6 +159,7 @@ const ViewRequest = () => {
     //   setLoading(false);
     // }
   }
+  
 
   async function verifySignature(buyerAddress, signature) {
     // console.log(signature);
@@ -202,13 +206,13 @@ const ViewRequest = () => {
           .updateManufacturerAddress(buyerAddress)
           .send({ from: account });
           toast.success("Response Sent to Manufacturer!!");
-      } else if (role === 2) {
+      } else if (role === 3) {
         const medicine = new web3.eth.Contract(Medicine.abi, address);
         medicine.methods
           .updateWholesalerAddress(buyerAddress)
           .send({ from: account });
         toast.success("Response sent to wholesaler");
-      } else if (role === 3) {
+      } else if (role === 4) {
         const medicine = new web3.eth.Contract(Medicine.abi, address);
         medicine.methods
           .updateDistributorAddress(buyerAddress)
@@ -232,8 +236,9 @@ const ViewRequest = () => {
 
   return (
     <div>
-      <h1 className="m-2">View Request</h1>
-
+      <h1 className="m-3 text-2xl">View Request</h1>
+      <h1 className="m-3 text-lg">Note : First Generate Signature before verifying!!</h1>
+      
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -333,6 +338,9 @@ const ViewRequest = () => {
           </table>
         </div>
       )}
+    
+
+    
     </div>
   );
 };

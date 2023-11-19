@@ -9,7 +9,7 @@ const RequestProduct = () => {
 
   return (
     <div>
-      <GenerateSignature />
+      <GenerateSignature header ={'Request Raw Material Package '} package ={'Package'} User = {'Supplier'}/>
     </div>
   );
 };

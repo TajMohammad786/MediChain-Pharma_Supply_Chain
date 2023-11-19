@@ -30,6 +30,16 @@ export const mainRoutes = [
     path: "/manufacturer",
     icon: FaIndustry,
   },
+  {
+    heading: "Wholesaler",
+    path: "/wholesaler",
+    icon: FaTruckMedical,
+  },
+  {
+    heading: "Distributor",
+    path: "/distributor",
+    icon: MdPlaylistAdd,
+  },
 ];
 
 export const adminRoutes = [
@@ -63,6 +73,12 @@ export const supplierRoutes = [
     icon: MdSpaceDashboard,
   },
   {
+    heading: "Generate Signature",
+    heading: "Generate Signature",
+    path: "/supplier/generate-signature",
+    icon: HiMiniViewfinderCircle,
+  },
+  {
     heading: "Add Material",
     heading: "Add Material",
     path: "/supplier/add-material",
@@ -74,6 +90,7 @@ export const supplierRoutes = [
     path: "/supplier/view-material",
     icon: HiMiniViewfinderCircle,
   },
+ 
 ];
 
 export const manufacturerRoutes = [
@@ -82,6 +99,12 @@ export const manufacturerRoutes = [
     heading: "Dashboard",
     path: "/manufacturer/dashboard",
     icon: MdSpaceDashboard,
+  },
+  {
+    heading: "Generate Signature",
+    heading: "Generate Signature",
+    path: "/supplier/generate-signature",
+    icon: HiMiniViewfinderCircle,
   },
   {
     heading: "Request Product",
@@ -135,5 +158,90 @@ export const transporterRoutes = [
     path: "/transporter/handle-package",
     icon: BiSolidMessageSquareAdd,
   },
+
+
   
+];
+export const wholesalerRoutes = [
+  {
+    heading: "Dashboard",
+    heading: "Dashboard",
+    path: "/wholesaler/dashboard",
+    icon: MdSpaceDashboard,
+  },
+  {
+    heading: "Generate Signature",
+    heading: "Generate Signature",
+    path: "/supplier/generate-signature",
+    icon: HiMiniViewfinderCircle,
+  },
+  {
+    heading: "Request Product",
+    heading: "Request Product",
+    path: "/wholesaler/request-product",
+    icon: BiSolidMessageSquareAdd,
+  },
+  {
+    heading: "View Response",
+    heading: "View Response",
+    path: "/wholesaler/view-response",
+    icon: HiMiniViewfinderCircle,
+  },
+  {
+    heading: "Receive Product",
+    heading: "Receive Product",
+    path: "/wholesaler/receive-product",
+    icon: BiSolidMessageSquareAdd,
+  },
+  {
+    heading: "View Medicine",
+    heading: "View Medicine",
+    path: "/wholesaler/view-medicine",
+    icon: HiMiniViewfinderCircle,
+  },
+  {
+    heading: "Transfer Medicine",
+    heading: "Transfer Medicine",
+    path: "/wholesaler/transfer-medicine",
+    icon: BiSolidMessageSquareAdd,
+  },
+];
+
+export const distributorRoutes = [
+  {
+    heading: "Dashboard",
+    heading: "Dashboard",
+    path: "/distributor/dashboard",
+    icon: MdSpaceDashboard,
+  },
+  {
+    heading: "Generate Signature",
+    heading: "Generate Signature",
+    path: "/supplier/generate-signature",
+    icon: HiMiniViewfinderCircle,
+  },
+  {
+    heading: "Request Product",
+    heading: "Request Product",
+    path: "/distributor/request-product",
+    icon: BiSolidMessageSquareAdd,
+  },
+  {
+    heading: "View Response",
+    heading: "View Response",
+    path: "/distributor/view-response",
+    icon: HiMiniViewfinderCircle,
+  },
+  {
+    heading: "Receive Medicine",
+    heading: "Receive Medicine",
+    path: "/distributor/receive-product",
+    icon: BiSolidMessageSquareAdd,
+  },
+  {
+    heading: "View Medicine",
+    heading: "View Medicine",
+    path: "/distributor/view-medicine",
+    icon: HiMiniViewfinderCircle,
+  },
 ];

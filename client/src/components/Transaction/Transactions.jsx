@@ -1,62 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import Transactions from '../../contracts/Transactions.json';
-import { Web3Context } from '../../Context/Web3Context';
-import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import Transactions from "../../contracts/Transactions.json";
+import { Web3Context } from "../../Context/Web3Context";
+import { useContext } from "react";
+import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import TransactionRow from "./TransactionRow";
 
 const ViewTransactions = () => {
   const { address } = useParams();
   const { webData } = useContext(Web3Context);
   const { account, supplyChain, web3 } = webData;
-  const [details, setDetails] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   async function getTxnData() {
     const transaction = new web3.eth.Contract(Transactions.abi, address);
-    let txns = await transaction.methods.getAllTransactions().call({ from: account });
-    const txnsList = txns.map((data, index) => (
-      <tr key={index} className="border-b bg-gray-100">
-        <td className="px-6 py-4 whitespace-nowrap overflow-hidden">
-          <div className="max-w-sm overflow-hidden overflow-ellipsis">
-            <span title={data[0]}>{data[0]}</span>
-          </div>
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap overflow-hidden">
-          <div className="max-w-xs">
-            <span title={data[1]}>{data[1]}</span>
-          </div>
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap overflow-hidden">
-          <div className="max-w-xs">
-            <span title={data[2]}>{data[2]}</span>
-          </div>
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap overflow-hidden">
-          <div className="max-w-xs">
-            <span title={data[3]}>{data[3]}</span>
-          </div>
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap overflow-hidden">
-          <div className="max-w-xs">
-            <span title={data[4]}>{data[4]}</span>
-          </div>
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap overflow-hidden">
-          <div className="max-w-xs">
-            <span title={data[5]}>{data[5]}</span>
-          </div>
-        </td>
-        <td className="px-6 py-4">
-          <div className="max-w-xs">
-            <span title={new Date(Number(data[6]) * 1000).toString()}>
-              {new Date(Number(data[6]) * 1000).toString()}
-            </span>
-          </div>
-        </td>
-      </tr>
-    ));
-    setDetails(txnsList);
+    let txns = await transaction.methods
+      .getAllTransactions()
+      .call({ from: account });
+    setTransactions(txns);
     setLoading(false);
   }
 
@@ -65,7 +27,7 @@ const ViewTransactions = () => {
   }, [account, address]);
 
   return (
-    <div style={{ overflowX: 'hidden' }}>
+    <div className="" id="table">
       <h1 className="m-2 text-2xl font-bold">Transactions List</h1>
 
       {loading ? (
@@ -73,32 +35,61 @@ const ViewTransactions = () => {
       ) : (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full bg-white text-left text-sm text-gray-500">
-            <thead className="dark:bg-gray-200 bg-gray-50 text-xs uppercase text-gray-900">
+            <thead className="bg-gray-50 text-xs uppercase text-gray-900 dark:bg-gray-200">
               <tr>
-                <th scope="col" className="px-6 py-3" style={{ width: '12%' }}>
+                <th
+                  scope="col"
+                  className="min-w-[120px] break-all px-3 py-2 text-center"
+                >
                   TxnHash
                 </th>
-                <th scope="col" className="px-6 py-3" style={{ width: '12%' }}>
+                <th
+                  scope="col"
+                  className="min-w-[120px] break-all px-3 py-2 text-center"
+                >
                   From
                 </th>
-                <th scope="col" className="px-6 py-3" style={{ width: '12%' }}>
+                <th
+                  scope="col"
+                  className="min-w-[120px] break-all px-3 py-2 text-center"
+                >
                   To
                 </th>
-                <th scope="col" className="px-6 py-3" style={{ width: '12%' }}>
+                <th scope="col" className="min-w-[120px] break-all px-3 py-2">
                   Previous TxnHash
                 </th>
-                <th scope="col" className="px-6 py-3" style={{ width: '12%' }}>
+                <th
+                  scope="col"
+                  className="min-w-[120px] break-all px-3 py-2 text-center"
+                >
                   Lat
                 </th>
-                <th scope="col" className="px-6 py-3" style={{ width: '12%' }}>
+                <th
+                  scope="col"
+                  className="min-w-[120px] break-all px-3 py-2 text-center"
+                >
                   Lng
                 </th>
-                <th scope="col" className="px-6 py-3" >
+                <th scope="col" className="min-w-[120px] break-all px-3 py-2">
                   Timestamp
                 </th>
               </tr>
             </thead>
-            <tbody>{details}</tbody>
+            <tbody>
+              {transactions &&
+                transactions.map((data, index) => (
+                  <TransactionRow
+                    key={index}
+                    txn_hash={data[0]}
+                    from={data[1]}
+                    to={data[2]}
+                    previous_txn_hash={data[3]}
+                    latitude={data[4]}
+                    longitude={data[5]}
+                    timestamps={data[6]}
+                  />
+                ))}
+            </tbody>
           </table>
         </div>
       )}

@@ -37,6 +37,22 @@ import ReceiveProduct from "./components/Manufacturer/ReceiveProduct.jsx";
 import CreateMedicine from "./components/Manufacturer/CreateMedicine.jsx";
 import ViewMedicine from "./components/Manufacturer/ViewMedicine.jsx";
 import ViewMedicineInfo from "./components/Manufacturer/ViewMedicineInfo.jsx";
+import Wholesaler from "./pages/Wholesaler.jsx";
+import WholesalerDashboard from "./components/Wholesaler/Dashboard.jsx";
+import RequestMedicine from "./components/Wholesaler/RequestProduct.jsx";
+import WholesalerReceiveMedicine from "./components/Wholesaler/ReceiveMedicine.jsx";
+import WholesalerViewMedicine from "./components/Wholesaler/ViewReceivedMedicine.jsx";
+import WholesalerMedicineInfo from "./components/Wholesaler/WholesalerMedInfo.jsx";
+
+import Distributor from "./pages/Distributor.jsx";
+import DistributorDashboard from "./components/Distributor/Dashboard.jsx";
+import DistributorRequestMedicine from "./components/Distributor/RequestProduct.jsx";
+import TransferMedicine from "./components/Wholesaler/TransferMedicine.jsx";
+import DistributorReceiveMedicine from "./components/Distributor/ReceiveMedicine.jsx";
+import DistributorViewMedicine from "./components/Distributor/ViewReceivedMedicine.jsx";
+import DistributorMedicineInfo from "./components/Distributor/DistributorMedicineInfo.jsx";
+import GetSignature from "./utils/getSignature.jsx";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -69,6 +85,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path="view-transactions/:address" element={<Transactions />} />
         <Route path="view-request/:address" element={<ViewRequest />} />
+        <Route path="generate-signature" element={<GetSignature />} />
       </Route>
 
       {/*Manufacturer*/}
@@ -83,10 +100,42 @@ const router = createBrowserRouter(
         </Route>
         <Route path="view-transactions/:address" element={<Transactions />} />
         <Route path="create-medicine" element={<CreateMedicine />} />
+        <Route path="view-request/:address" element={<ViewRequest />} />
         <Route path="view-medicine" element={<ViewMedicine />} />
         <Route path="view-medicine-list/:address" element={<ViewMedicineInfo />}>
           <Route path=":id" element={<ViewMedicineInfo />} />
+          
         </Route>
+        <Route path="generate-signature" element={<GetSignature />} />
+      </Route>
+      {/* Wholesaler */}
+      <Route path="wholesaler" element={<Wholesaler />}>
+        <Route path="dashboard" element={<WholesalerDashboard />} />
+        <Route path="request-product" element={<RequestMedicine />} />
+        <Route path="view-response" element={<ViewResponse />} />
+        <Route path="view-request/:address" element={<ViewRequest />} />
+        <Route path="receive-product" element={<WholesalerReceiveMedicine />} />
+        <Route path="transfer-medicine" element={<TransferMedicine />} />
+        <Route path="view-transactions/:address" element={<Transactions />} />
+        <Route path="view-medicine" element={<WholesalerViewMedicine />} />
+        <Route path="view-medicine-list/:address" element={<WholesalerMedicineInfo />}>
+          <Route path=":id" element={<WholesalerMedicineInfo />} />
+        </Route>
+        <Route path="generate-signature" element={<GetSignature />} />
+      </Route>
+      {/* Distributor */}
+      <Route path="distributor" element={<Distributor />}>
+        <Route path="dashboard" element={<DistributorDashboard />} />
+        <Route path="request-product" element={<DistributorRequestMedicine />} />
+        <Route path="view-response" element={<ViewResponse />} />
+        <Route path="view-request/:address" element={<ViewRequest />} />
+        <Route path="receive-product" element={<DistributorReceiveMedicine />} />
+        <Route path="view-transactions/:address" element={<Transactions />} />
+        <Route path="view-medicine" element={<DistributorViewMedicine />} />
+        <Route path="view-medicine-list/:address" element={<DistributorMedicineInfo />}>
+          <Route path=":id" element={<DistributorMedicineInfo />} />
+        </Route>
+        <Route path="generate-signature" element={<GetSignature />} />
       </Route>
 
       <Route path="*" element={<div>404 Page Not Found!</div>} />

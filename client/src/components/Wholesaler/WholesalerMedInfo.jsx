@@ -10,13 +10,14 @@ import { useContext } from "react";
 import toast from 'react-hot-toast';
 // import { getTrimmedString } from "../../utils/getTrimmedString";
 
-const ViewMedicineInfo = () => {
+const WholesalerMedicineInfo = () => {
     const [loading, isLoading] = useState(true);
     const { webData } = useContext(Web3Context);
     const { account, supplyChain, web3 } = webData;
 
     const [activestep, setActivestep] = useState(0);
     const { address } = useParams();
+    const [subContract, setSubContract] = useState(0);
 
     const [details, setDetails] = useState({
         productId: "",
@@ -36,7 +37,9 @@ const ViewMedicineInfo = () => {
         let medicine = new web3.eth.Contract(Medicine.abi, address);
         // console.log(medicine);
         let data = await medicine.methods.getMedicineInfo().call({ from: account });
-        console.log(data)
+        let subcontractAddress = await supplyChain.methods.getSubContractWD(address).call({ from: account });
+        setSubContract(subcontractAddress);
+        // console.log(data)
         let status = Number(data[ 6 ]);
         // console.log(status)
         setActivestep(Number(status));
@@ -73,7 +76,7 @@ const ViewMedicineInfo = () => {
           case 1:
             return 'Medicine collected by  Transporter is on its way to the Wholesaler.';
           case 2:
-            return 'Medicine currently with the Wholesaler';
+            return 'Wholesaler, the medicine is currently with you!!';
           case 3:
             return 'Medicine is collected by the Transporter On its way to the Distributor.';
           case 4:
@@ -90,7 +93,7 @@ const ViewMedicineInfo = () => {
       function sendPackage() {
         let medicine = new web3.eth.Contract(Medicine.abi, address);
         let signature = prompt('Enter signature');
-        supplyChain.methods.sendPackageToEntity(details.wholesaler, account, address, signature).send({ from: account, gas:3000000 })
+        supplyChain.methods.sendPackageToEntity(details.distributor, account, address, signature).send({ from: account, gas:3000000 })
           .once('receipt', async (receipt) => {
             let data = await medicine.methods.getMedicineInfo().call({ from: account });
             let txnContractAddress = data[ 7 ];
@@ -160,17 +163,21 @@ const ViewMedicineInfo = () => {
             Transaction Contract Address: &nbsp;
             <span className="font-para font-medium text-fuchsia-500">
             <Link
-                to={`/manufacturer/view-transactions/${details.txnContractAddress}`}
+                to={`/wholesaler/view-transactions/${details.txnContractAddress}`}
                 className="capitalize hover:underline"
               >
                 {details.txnContractAddress}
               </Link>
             </span>
           </p>
+          <p className="mb-2 font-head font-semibold">
+            SubContract Address: &nbsp;
+            <span className="font-para font-medium">{subContract}</span>
+          </p>
         </div>
         <button className="rounded border-0 bg-indigo-500 px-6 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none">
           <Link
-            to={`/manufacturer/view-request/${address}`}
+            to={`/wholesaler/view-request/${address}`}
             className="text-white hover:underline"
           >
             View Requests
@@ -192,6 +199,6 @@ const ViewMedicineInfo = () => {
     }
 }
 
-export default ViewMedicineInfo;
+export default WholesalerMedicineInfo;
 
 

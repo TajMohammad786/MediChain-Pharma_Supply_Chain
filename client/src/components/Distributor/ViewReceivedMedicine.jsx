@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Web3Context } from "../../Context/Web3Context";
 import { useContext, useState, useEffect } from "react";
 
-const ViewMedicine = () => {
+const DistributorViewMedicine = () => {
     const { webData } = useContext(Web3Context);
     const { account, supplyChain, web3 } = webData;
     const [loading, isLoading] = useState(true);
@@ -14,9 +14,11 @@ const ViewMedicine = () => {
       
     
     const fetchMedicine = async()=> {
-        const medicineDetails = await supplyChain.methods.getAllCreatedMedicines().call({ from: account });
-        setAddresses(medicineDetails);
-        // console.log(medicineDetails);
+        // const medicineDetails = await supplyChain.methods.getAllCreatedMedicines().call({ from: account });
+        // const medicineAddresses = await supplyChain.methods.getAllMedicinesAtWholesaler().call({ from: account });
+        var medicineAddresses = await supplyChain.methods.getAllMedicinesAtDistributor().call({from: account});
+        setAddresses(medicineAddresses);
+        // console.log(medicineAddresses);
         isLoading(false)
     }
     
@@ -36,13 +38,13 @@ const ViewMedicine = () => {
     return (
         <div className="min-h-screen p-4">
         <h1 className="mb-4 font-head text-3xl font-bold">
-          Medicines
+          Medicines Received At Distributor
         </h1>
         <ul className="mt-2">
           {addresses.map((address, index) => (
             <li key={index} className="mb-2 text-fuchsia-500">
               <Link
-                to={`/manufacturer/view-medicine-list/${address}`}
+                to={`/distributor/view-medicine-list/${address}`}
                 className="capitalize hover:underline"
               >
                 {address} 
@@ -55,4 +57,4 @@ const ViewMedicine = () => {
     }
 }
 
-export default ViewMedicine
+export default DistributorViewMedicine

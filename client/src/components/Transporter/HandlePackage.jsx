@@ -28,9 +28,10 @@ const HandlePackage = () => {
     .send({from: account, gas: 3000000})
     .once('receipt', async (receipt) => {
       console.log(receipt);
+      toast.success("Package Handled Successfully")
       setIsLoading(false);
     })
-    toast.success("Package Handled Successfully")
+    
   }
   
   return (

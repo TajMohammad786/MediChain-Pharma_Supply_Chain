@@ -6,19 +6,20 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const ViewResponse = () => {
-  const { address } = useParams();
+const ViewResponse = (props) => {
+  
   const { webData } = useContext(Web3Context);
   const { account, supplyChain, web3 } = webData;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   async function getEvents() {
+    // console.log(props.account)
     // try {
     const events = await supplyChain.getPastEvents("respondEvent", {
 
       //Work on this later
-      // filter: { packageAddr: address },
+      filter: { buyer: account },
       fromBlock: 0,
       toBlock: "latest",
     });
