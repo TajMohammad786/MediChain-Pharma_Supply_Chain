@@ -1,6 +1,7 @@
 import React from 'react';
 import { Web3Context } from '../../Context/Web3Context';
 import { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 
 
 const TransferMedicine = () => {
@@ -30,6 +31,7 @@ const TransferMedicine = () => {
         supplyChain.methods.transferMedicineWtoD(medicineAddress,transporterAddress, distributorAddress).send({ from: account, gas : 3000000 })
             .once('receipt', async (receipt) => {
                 console.log(receipt);
+                toast.success("Medicine Transfered Successfully");
                 // isLoading(false);
             })
     }

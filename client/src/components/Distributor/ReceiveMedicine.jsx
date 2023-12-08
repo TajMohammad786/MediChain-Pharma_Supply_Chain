@@ -30,7 +30,11 @@ const DistributorReceiveMedicine = () => {
   async function handleSubmit() {
     let medicine = new web3.eth.Contract(Medicine.abi, address);
     let data = await medicine.methods.getMedicineInfo().call({from: account});
-    let events = await supplyChain.getPastEvents('sendEvent', {filter: {packageAddr: address}, fromBlock: 0, toBlock: 'latest'});
+    let events = await supplyChain.getPastEvents('sendEvent', {
+        filter: {packageAddr: address},
+        fromBlock: 0,
+        toBlock: 'latest'
+    });
     events = events.filter((event) => {
       return event.returnValues.packageAddr == address;
     });
@@ -39,7 +43,7 @@ const DistributorReceiveMedicine = () => {
     
     // I have to look on this in future ******* suuplier address needs to be there
     let wholesaler = data[0];
-    console.log(wholesaler)
+    // console.log(wholesaler)
     // let supplier = events[0]['returnValues'][1];
     let signature = events[0]['returnValues'][3];
     // console.log(supplier, signature)

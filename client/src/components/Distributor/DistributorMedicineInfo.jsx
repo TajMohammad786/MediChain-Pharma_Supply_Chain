@@ -10,7 +10,7 @@ import { useContext } from "react";
 import toast from 'react-hot-toast';
 // import { getTrimmedString } from "../../utils/getTrimmedString";
 
-const WholesalerMedicineInfo = () => {
+const DistributorMedicineInfo = () => {
     const [loading, isLoading] = useState(true);
     const { webData } = useContext(Web3Context);
     const { account, supplyChain, web3 } = webData;
@@ -106,7 +106,7 @@ const WholesalerMedicineInfo = () => {
             let txns = await transactions.methods.getAllTransactions().call({ from: account });
             let prevTxn = txns[ txns.length - 1 ][ 0 ];
             transactions.methods.createTxnEntry(txnHash, account, transporterAddress, prevTxn, '10', '10').send({ from: account, gas:3000000 });
-            toast.success("Package sent Successfully!!")
+            toast.success("Package sent Successfully!!");
           });
       }
     
@@ -166,7 +166,7 @@ const WholesalerMedicineInfo = () => {
             Transaction Contract Address: &nbsp;
             <span className="font-para font-medium text-fuchsia-500">
             <Link
-                to={`/wholesaler/view-transactions/${details.txnContractAddress}`}
+                to={`/distributor/view-transactions/${details.txnContractAddress}`}
                 className="capitalize hover:underline"
               >
                 {details.txnContractAddress}
@@ -184,7 +184,7 @@ const WholesalerMedicineInfo = () => {
         </div>
         <button className="rounded border-0 bg-indigo-500 px-6 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none">
           <Link
-            to={`/wholesaler/view-request/${address}`}
+            to={`/distributor/view-request/${address}`}
             className="text-white hover:underline"
           >
             View Requests
@@ -206,6 +206,6 @@ const WholesalerMedicineInfo = () => {
     }
 }
 
-export default WholesalerMedicineInfo;
+export default DistributorMedicineInfo;
 
 

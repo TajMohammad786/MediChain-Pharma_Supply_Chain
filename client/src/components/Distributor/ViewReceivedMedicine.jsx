@@ -8,14 +8,11 @@ const DistributorViewMedicine = () => {
     const { account, supplyChain, web3 } = webData;
     const [loading, isLoading] = useState(true);
     const [addresses, setAddresses] = useState([]);
-    const [rawMaterialDescription, setRawMaterialDescription] = useState([]);
 
     
       
     
     const fetchMedicine = async()=> {
-        // const medicineDetails = await supplyChain.methods.getAllCreatedMedicines().call({ from: account });
-        // const medicineAddresses = await supplyChain.methods.getAllMedicinesAtWholesaler().call({ from: account });
         var medicineAddresses = await supplyChain.methods.getAllMedicinesAtDistributor().call({from: account});
         setAddresses(medicineAddresses);
         // console.log(medicineAddresses);

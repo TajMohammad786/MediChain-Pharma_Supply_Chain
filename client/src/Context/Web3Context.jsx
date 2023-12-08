@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext,useContext, useState } from "react";
 import { mainRoutes } from "../utils/sidebarContent";
 import toast from "react-hot-toast";
 
@@ -47,7 +47,7 @@ export const Web3Provider = ({ children }) => {
         toast.error("Unable to get Balance");
       });
   };
-  // console.log(balance);
+ 
   return (
     <Web3Context.Provider
       value={{
@@ -64,3 +64,7 @@ export const Web3Provider = ({ children }) => {
     </Web3Context.Provider>
   );
 };
+
+export const useWeb3Context = ()=>{
+  return useContext(Web3Context);
+}

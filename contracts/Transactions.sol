@@ -23,7 +23,15 @@ contract Transactions {
         Creator = _creator;
     }
     
-    event txnCreated(bytes32 _txnHash, address _from, address _to, bytes32 _prev, uint _timestamp, string _latitude, string _longitude);
+    event txnCreated(
+        bytes32 _txnHash, 
+        address _from, 
+        address _to, 
+        bytes32 _prev, 
+        uint _timestamp, 
+        string _latitude, 
+        string _longitude
+    );
     
     function createTxnEntry(bytes32 _txnHash, address _from, address _to, bytes32 _prev, string memory _latitude, string memory _longitude) public {
         uint _timestamp = block.timestamp;
@@ -38,11 +46,18 @@ contract Transactions {
     }
 
     function getAllTransactions() public view returns(txns[] memory) {
-        uint len = txnCount;
-        txns[] memory ret = new txns[](len);
-        for (uint i = 0; i < len; i++) {
-            ret[i] = transactions[i];
-        }
-        return ret;    
+        // if(Creator == callerAddr){
+            uint len = txnCount;
+            txns[] memory ret = new txns[](len);
+            for (uint i = 0; i < len; i++) {
+                ret[i] = transactions[i];
+            }
+            return ret;   
+
+        // }
+        // else{/
+            // return ;
+        // }
+         
     }
 }

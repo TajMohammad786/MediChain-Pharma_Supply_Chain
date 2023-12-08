@@ -19,13 +19,14 @@ const ViewTransactions = () => {
       .getAllTransactions()
       .call({ from: account });
     setTransactions(txns);
+   
     setLoading(false);
   }
 
   useEffect(() => {
     getTxnData();
   }, [account, address]);
-
+  console.log(transactions);
   return (
     <div className="" id="table">
       <h1 className="m-2 text-2xl font-bold">Transactions List</h1>
