@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import TransactionRow from "./TransactionRow";
+import getTransactions from "../../utils/getTransactions";
 
 const ViewTransactions = () => {
   const { address } = useParams();
@@ -19,7 +20,26 @@ const ViewTransactions = () => {
       .getAllTransactions()
       .call({ from: account });
     setTransactions(txns);
+<<<<<<< HEAD
    
+=======
+
+    const transactionsForDatabase = [];
+    for (let t in txns) {
+      let obj = {};
+      obj["transaction_hash"] = txns[t][0];
+      obj["from"] = txns[t][1];
+      obj["to"] = txns[t][2];
+      obj["prev_transaction_hash"] = txns[t][3];
+      obj["latitude"] = txns[t][4];
+      obj["longitude"] = txns[t][5];
+      obj["timestamps"] = txns[t][6] + "";
+      transactionsForDatabase.push(obj);
+    }
+    console.log(transactionsForDatabase);
+    // TODO: first convert this transaction object as per the database model
+    getTransactions(transactionsForDatabase);
+>>>>>>> 40a847a4eaac6bc52807fc3dd6596a7fe6ffe5f8
     setLoading(false);
   }
 

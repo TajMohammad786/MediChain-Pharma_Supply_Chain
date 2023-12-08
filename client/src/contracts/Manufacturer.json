@@ -5151,18 +5151,10 @@
   "ast": {
     "absolutePath": "project:/contracts/Manufacturer.sol",
     "exportedSymbols": {
-      "Manufacturer": [
-        85
-      ],
-      "Medicine": [
-        535
-      ],
-      "RawMaterial": [
-        1017
-      ],
-      "Transactions": [
-        1766
-      ]
+      "Manufacturer": [85],
+      "Medicine": [535],
+      "RawMaterial": [1017],
+      "Transactions": [1766]
     },
     "id": 86,
     "license": "MIT",
@@ -5170,15 +5162,7 @@
     "nodes": [
       {
         "id": 1,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.4",
-          ".22",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.4", ".22", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:32:0"
       },
@@ -5210,15 +5194,11 @@
         "abstract": false,
         "baseContracts": [],
         "canonicalName": "Manufacturer",
-        "contractDependencies": [
-          535
-        ],
+        "contractDependencies": [535],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 85,
-        "linearizedBaseContracts": [
-          85
-        ],
+        "linearizedBaseContracts": [85],
         "name": "Manufacturer",
         "nameLocation": "134:12:0",
         "nodeType": "ContractDefinition",
@@ -5663,9 +5643,7 @@
               "src": "913:361:0",
               "statements": [
                 {
-                  "assignments": [
-                    60
-                  ],
+                  "assignments": [60],
                   "declarations": [
                     {
                       "constant": false,

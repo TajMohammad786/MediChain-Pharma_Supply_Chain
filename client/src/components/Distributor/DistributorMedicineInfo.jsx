@@ -1,36 +1,37 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Medicine from '../../contracts/Medicine.json';
-import CustomStepper from '../Supplier/Stepper';
-import Transactions from '../../contracts/Transactions.json'; 
+import React from "react";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Medicine from "../../contracts/Medicine.json";
+import CustomStepper from "../Supplier/Stepper";
+import Transactions from "../../contracts/Transactions.json";
 // import { Link, useParams } from "react-router-dom";
 import { Web3Context } from "../../Context/Web3Context";
 import { useContext } from "react";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import saveMedicines from "../../utils/saveMedicines";
 // import { getTrimmedString } from "../../utils/getTrimmedString";
 
-const DistributorMedicineInfo = () => {
+const WholesalerMedicineInfo = () => {
     const [loading, isLoading] = useState(true);
     const { webData } = useContext(Web3Context);
     const { account, supplyChain, web3 } = webData;
 
-    const [activestep, setActivestep] = useState(0);
-    const { address } = useParams();
-    const [subContractWD, setSubContractWD] = useState(0);
-    const [subContractDC, setSubContractDC] = useState(0);
+  const [activestep, setActivestep] = useState(0);
+  const { address } = useParams();
+  const [subContractWD, setSubContractWD] = useState(0);
+  const [subContractDC, setSubContractDC] = useState(0);
 
-    const [details, setDetails] = useState({
-        productId: "",
-        description: "",
-        quantity: "",
-        rawMatAddress: "",
-        transporter: "",
-        manufacturer: "",
-        wholesaler: "",//
-        distributor: "",//
-        txnContractAddress: "",
-      });
+  const [details, setDetails] = useState({
+    productId: "",
+    description: "",
+    quantity: "",
+    rawMatAddress: "",
+    transporter: "",
+    manufacturer: "",
+    wholesaler: "", //
+    distributor: "", //
+    txnContractAddress: "",
+  });
 
       
 
@@ -106,7 +107,7 @@ const DistributorMedicineInfo = () => {
             let txns = await transactions.methods.getAllTransactions().call({ from: account });
             let prevTxn = txns[ txns.length - 1 ][ 0 ];
             transactions.methods.createTxnEntry(txnHash, account, transporterAddress, prevTxn, '10', '10').send({ from: account, gas:3000000 });
-            toast.success("Package sent Successfully!!");
+            toast.success("Package sent Successfully!!")
           });
       }
     
@@ -115,16 +116,14 @@ const DistributorMedicineInfo = () => {
       }, []);
     if (loading) {
     return (
-        <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <p className="text-2xl">Loading Medicine details...</p>
-        </div>
+      </div>
     );
-    } else {
+  } else {
     return (
-        <>
-        <h1 className="mb-4 font-head text-3xl font-bold">
-          Medicine Details
-        </h1>
+      <>
+        <h1 className="mb-4 font-head text-3xl font-bold">Medicine Details</h1>
         <div className="mb-4">
           <p className="mb-2 font-head font-semibold">
             Generated Product ID: &nbsp;{" "}
@@ -132,7 +131,9 @@ const DistributorMedicineInfo = () => {
           </p>
           <p className="mb-2 font-head font-semibold">
             Medicine Raw Material: &nbsp;
-            <span className="font-para font-medium">{details.rawMatAddress}</span>
+            <span className="font-para font-medium">
+              {details.rawMatAddress}
+            </span>
           </p>
           <p className="mb-2 font-head font-semibold">
             Medicine Description: &nbsp;
@@ -166,7 +167,7 @@ const DistributorMedicineInfo = () => {
             Transaction Contract Address: &nbsp;
             <span className="font-para font-medium text-fuchsia-500">
             <Link
-                to={`/distributor/view-transactions/${details.txnContractAddress}`}
+                to={`/wholesaler/view-transactions/${details.txnContractAddress}`}
                 className="capitalize hover:underline"
               >
                 {details.txnContractAddress}
@@ -197,15 +198,18 @@ const DistributorMedicineInfo = () => {
         >
           Send Package
         </button>
-        <div className="mt-12 ml-4 mr-4">
-
-        <CustomStepper activeStep={activestep} getSteps={getSupplyChainSteps} getStepContent={getSupplyChainStepContent} />
+        <div className="ml-4 mr-4 mt-12">
+          <CustomStepper
+            activeStep={activestep}
+            getSteps={getSupplyChainSteps}
+            getStepContent={getSupplyChainStepContent}
+          />
         </div>
-        </>
-    )
-    }
-}
+      </>
+    );
+  }
+};
 
-export default DistributorMedicineInfo;
+export default WholesalerMedicineInfo;
 
 
