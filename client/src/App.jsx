@@ -14,7 +14,6 @@ function App() {
 
   const { webData, setWebData, sidebarRoutes, setSidebarRoutes } =
     useContext(Web3Context);
-  
 
   // initialize web3
   useEffect(() => {
@@ -29,9 +28,8 @@ function App() {
       setProgress(100);
     }
     getWeb3();
-    
   }, []);
- 
+
   return (
     <div className="flex min-h-screen flex-col font-para">
       <Toast />
