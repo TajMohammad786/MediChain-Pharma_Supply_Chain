@@ -8,7 +8,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // cors
-const allowedOrigins = ["http://localhost:19006", "http://localhost:3001"];
+const allowedOrigins = [
+  "http://localhost:19006",
+  "http://localhost:3001",
+  "http://192.168.0.108:8081",
+];
 app.use(cors(allowedOrigins));
 
 app.get("", (req, res) => {
