@@ -145,7 +145,7 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Web3Provider>
+    <Web3Provider>  
       <SidebarContextProvider>
         <RouterProvider router={router} />
       </SidebarContextProvider>

@@ -1,6 +1,6 @@
 import Web3, { net } from "web3";
 import SupplyChain from "../contracts/SupplyChain.json";
-import { useState } from "react";
+// import { useState } from "react";
 // import { useContext } from "react";
 
 const initWeb3 = async () => {
@@ -22,7 +22,8 @@ const initWeb3 = async () => {
   );
   //   console.log(deployerTransaction)
   const deployerAccount = deployerTransaction.from;
-  
+  // console.log(web3)
+  // console.log(supplyChain)
   return {
     web3: web3,
     supplyChain: supplyChain,

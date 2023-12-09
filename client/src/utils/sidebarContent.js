@@ -103,7 +103,7 @@ export const manufacturerRoutes = [
   {
     heading: "Generate Signature",
     heading: "Generate Signature",
-    path: "/supplier/generate-signature",
+    path: "/manufacturer/generate-signature",
     icon: HiMiniViewfinderCircle,
   },
   {
@@ -172,7 +172,7 @@ export const wholesalerRoutes = [
   {
     heading: "Generate Signature",
     heading: "Generate Signature",
-    path: "/supplier/generate-signature",
+    path: "/wholesaler/generate-signature",
     icon: HiMiniViewfinderCircle,
   },
   {
@@ -217,7 +217,7 @@ export const distributorRoutes = [
   {
     heading: "Generate Signature",
     heading: "Generate Signature",
-    path: "/supplier/generate-signature",
+    path: "/distributor/generate-signature",
     icon: HiMiniViewfinderCircle,
   },
   {

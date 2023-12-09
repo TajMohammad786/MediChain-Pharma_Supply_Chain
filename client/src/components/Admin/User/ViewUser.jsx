@@ -32,7 +32,7 @@ const ViewUser = () => {
         .call({ gas: 3000000 });
       // console.log(result);
       const { 0: name, 1: location, 2: role, 4: userAddress } = result;
-
+      console.log(result);
       setUserDetails({ name, location, role, address });
       // console.log(userDetails.name);
 

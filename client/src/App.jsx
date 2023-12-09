@@ -16,7 +16,7 @@ function App() {
     useContext(Web3Context);
 
   // initialize web3
-  useEffect(() => {
+  useEffect(() => { 
     async function getWeb3() {
       setProgress(50);
       const { web3, supplyChain, account } = await initWeb3();
@@ -24,7 +24,7 @@ function App() {
         web3: web3,
         supplyChain: supplyChain,
         account: account,
-      });
+      })
       setProgress(100);
     }
     getWeb3();

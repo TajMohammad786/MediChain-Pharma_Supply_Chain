@@ -144,8 +144,8 @@ const ViewRequest = () => {
   async function getEvents() {
     // try {
     const events = await supplyChain.getPastEvents("buyEvent", {
-      filter: { seller: account   },
-      // filter: { packageAddr: address},
+      filter: { seller: account },
+      filter: { packageAddr: address},
       fromBlock: 0,
       toBlock: "latest",
     });
