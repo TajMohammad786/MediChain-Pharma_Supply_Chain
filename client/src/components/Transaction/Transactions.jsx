@@ -20,9 +20,6 @@ const ViewTransactions = () => {
       .getAllTransactions()
       .call({ from: account });
     setTransactions(txns);
-<<<<<<< HEAD
-   
-=======
 
     const transactionsForDatabase = [];
     for (let t in txns) {
@@ -39,7 +36,6 @@ const ViewTransactions = () => {
     console.log(transactionsForDatabase);
     // TODO: first convert this transaction object as per the database model
     getTransactions(transactionsForDatabase);
->>>>>>> 40a847a4eaac6bc52807fc3dd6596a7fe6ffe5f8
     setLoading(false);
   }
 

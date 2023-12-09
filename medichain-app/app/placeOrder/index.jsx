@@ -52,7 +52,8 @@ const index = () => {
           placeholder="Enter Quantity"
           style={{ fontSize: 18 }}
           value={address}
-          onChangeText={(text) => setAddress(text)}
+          
+          //onChangeText={(text) => setAddress(text)}
           keyboardType="number-pad"
         />
       </View>
@@ -63,8 +64,8 @@ const index = () => {
         onPress={() => {
           showToast(
             types.success,
-            "Order placed",
-            "Thank you for placing the order"
+            "Order Placed!!",
+            "Thank you for placing the Order"
           );
         }}
         title={"place order"}

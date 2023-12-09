@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import saveMedicines from "../../utils/saveMedicines";
 // import { getTrimmedString } from "../../utils/getTrimmedString";
 
-const WholesalerMedicineInfo = () => {
+const DistributorMedicineInfo = () => {
     const [loading, isLoading] = useState(true);
     const { webData } = useContext(Web3Context);
     const { account, supplyChain, web3 } = webData;
@@ -167,7 +167,7 @@ const WholesalerMedicineInfo = () => {
             Transaction Contract Address: &nbsp;
             <span className="font-para font-medium text-fuchsia-500">
             <Link
-                to={`/wholesaler/view-transactions/${details.txnContractAddress}`}
+                to={`/distributor/view-transactions/${details.txnContractAddress}`}
                 className="capitalize hover:underline"
               >
                 {details.txnContractAddress}
@@ -210,6 +210,6 @@ const WholesalerMedicineInfo = () => {
   }
 };
 
-export default WholesalerMedicineInfo;
+export default DistributorMedicineInfo;
 
 
