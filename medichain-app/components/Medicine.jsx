@@ -3,16 +3,16 @@ import { useRouter } from "expo-router";
 import { Card } from "@rneui/themed";
 
 const Medicine = ({ medicine }) => {
-  const { name, quantity } = medicine;
+  const { description, quantity } = medicine;
   const router = useRouter();
   return (
     <Pressable
       onPress={() => {
-        router.push(`/medicines/${name}`);
+        router.push(`/medicines/${description}`);
       }}
     >
       <Card>
-        <Card.Title style={{ textTransform: "capitalize" }}> {name}</Card.Title>
+        <Card.Title style={{ textTransform: "capitalize" }}> {description}</Card.Title>
         <Card.Divider />
         <View>
           {/* <Image

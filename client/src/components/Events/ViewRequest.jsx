@@ -145,7 +145,7 @@ const ViewRequest = () => {
     // try {
     const events = await supplyChain.getPastEvents("buyEvent", {
       filter: { seller: account },
-      filter: { packageAddr: address},
+      // filter: { packageAddr: address},
       fromBlock: 0,
       toBlock: "latest",
     });
